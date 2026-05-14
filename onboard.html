@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — Casava</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #F4A261;
+    --saffron-dark: #E07A3A;
+    --sage: #81B29A;
+    --coral: #E76F51;
+    --bg: #111110;
+    --bg-2: #1A1A18;
+    --bg-3: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border-focus: rgba(244,162,97,0.5);
+    --text: #F0EDE8;
+    --text-2: #A09D98;
+    --text-3: #6B6864;
+    --success: #81B29A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(244,162,97,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(129,178,154,0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--saffron);
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    display: block;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 6vw, 38px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--saffron);
+  }
+
+  .header p {
+    font-size: 15px;
+    color: var(--text-2);
+    line-height: 1.6;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  /* Progress */
+  .progress {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .progress-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--bg-3);
+    transition: all 0.3s ease;
+  }
+
+  .progress-dot.active {
+    background: var(--saffron);
+    width: 24px;
+    border-radius: 3px;
+  }
+
+  .progress-dot.done {
+    background: var(--sage);
+  }
+
+  /* Card */
+  .card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    animation: fadeUp 0.6s 0.15s ease both;
+  }
+
+  .section-title {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Fields */
+  .field {
+    margin-bottom: 1.25rem;
+  }
+
+  .field:last-of-type {
+    margin-bottom: 0;
+  }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-2);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  label span.req {
+    color: var(--saffron);
+    margin-left: 2px;
+  }
+
+  input, select {
+    width: 100%;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input::placeholder {
+    color: var(--text-3);
+  }
+
+  input:focus, select:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(244,162,97,0.08);
+  }
+
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6864' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  select option {
+    background: var(--bg-2);
+    color: var(--text);
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* Divider between sections */
+  .section-gap {
+    height: 1.75rem;
+  }
+
+  /* Notification toggle */
+  .notif-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 0.4rem;
+  }
+
+  .notif-option {
+    position: relative;
+  }
+
+  .notif-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .notif-option label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.6rem 0.85rem;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-2);
+    transition: all 0.2s;
+    margin: 0;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  .notif-option input[type="radio"]:checked + label {
+    border-color: var(--saffron);
+    background: rgba(244,162,97,0.08);
+    color: var(--saffron);
+  }
+
+  .notif-icon {
+    font-size: 16px;
+  }
+
+  /* Submit button */
+  .submit-btn {
+    width: 100%;
+    background: var(--saffron);
+    border: none;
+    border-radius: 12px;
+    color: #1A1200;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 1rem;
+    margin-top: 2rem;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.01em;
+  }
+
+  .submit-btn:hover {
+    background: var(--saffron-dark);
+    transform: translateY(-1px);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .submit-btn.loading {
+    position: relative;
+    color: transparent;
+  }
+
+  .submit-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(26,18,0,0.3);
+    border-top-color: #1A1200;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 0.7s linear infinite;
+  }
+
+  .privacy-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-3);
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+
+  /* Success state */
+  .success-card {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .success-card.visible {
+    display: block;
+  }
+
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(129,178,154,0.15);
+    border: 1px solid rgba(129,178,154,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 28px;
+  }
+
+  .success-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .success-card p {
+    font-size: 15px;
+    color: var(--text-2);
+    line-height: 1.6;
+    max-width: 360px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .success-detail {
+    background: var(--bg-3);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    font-size: 13px;
+    color: var(--text-2);
+    text-align: left;
+    line-height: 1.8;
+  }
+
+  .success-detail strong {
+    color: var(--saffron);
+    font-weight: 500;
+  }
+
+  /* Error message */
+  .error-msg {
+    display: none;
+    background: rgba(231,111,81,0.1);
+    border: 1px solid rgba(231,111,81,0.3);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 13px;
+    color: #F0A090;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .error-msg.visible { display: block; }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  @media (max-width: 480px) {
+    .field-row { grid-template-columns: 1fr; }
+    .notif-options { grid-template-columns: 1fr 1fr; }
+    .card { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <span class="logo">casava</span>
+    <h1>Let's get your business<br><em>on autopilot.</em></h1>
+    <p>Fill out the form below and we'll have your account ready within 24 hours.</p>
+  </div>
+
+  <div class="progress" id="progressDots">
+    <div class="progress-dot active"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+  </div>
+
+  <div class="card" id="formCard">
+    <form id="onboardForm" novalidate>
+
+      <!-- Section 1: Business Identity -->
+      <div class="section-title">Your business</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>First name <span class="req">*</span></label>
+          <input type="text" name="ownerFirstName" placeholder="Fred" required autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label>Last name <span class="req">*</span></label>
+          <input type="text" name="ownerLastName" placeholder="Alexander" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Business name <span class="req">*</span></label>
+        <input type="text" name="companyName" placeholder="Nutmeg Creole Kitchen" required autocomplete="organization">
+      </div>
+
+      <div class="field">
+        <label>Business website</label>
+        <input type="url" name="businessWebsite" placeholder="https://yourwebsite.com" autocomplete="url">
+      </div>
+
+      <div class="section-gap"></div>
+
+      <!-- Section 2: Contact -->
+      <div class="section-title">Contact details</div>
+
+      <div class="field">
+        <label>Email address <span class="req">*</span></label>
+        <input type="email" name="ownerEmail" placeholder="you@yourbusiness.com" required autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label>Phone number <span class="req">*</span></label>
+        <input type="tel" name="ownerPhone" placeholder="+1 (416) 555-0123" required autocomplete="tel">
+      </div>
+
+      <div class="section-gap"></div>
+
+      <!-- Section 3: Notifications -->
+      <div class="section-title">How should we notify you?</div>
+
+      <div class="field">
+        <label>Primary channel <span class="req">*</span></label>
+        <div class="notif-options">
+          <div class="notif-option">
+            <input type="radio" name="notificationChannel" id="notif-whatsapp" value="whatsapp" checked>
+            <label for="notif-whatsapp"><span class="notif-icon">💬</span> WhatsApp</label>
+          </div>
+          <div class="notif-option">
+            <input type="radio" name="notificationChannel" id="notif-telegram" value="telegram">
+            <label for="notif-telegram"><span class="notif-icon">✈️</span> Telegram</label>
+          </div>
+          <div class="notif-option">
+            <input type="radio" name="notificationChannel" id="notif-email" value="email">
+            <label for="notif-email"><span class="notif-icon">📧</span> Email</label>
+          </div>
+          <div class="notif-option">
+            <input type="radio" name="notificationChannel" id="notif-sms" value="sms">
+            <label for="notif-sms"><span class="notif-icon">📱</span> SMS</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" id="notifContactField">
+        <label>Notification contact <span class="req">*</span></label>
+        <input type="text" name="notificationContact" id="notifContactInput" placeholder="Phone number or email" required>
+      </div>
+
+      <div class="section-gap"></div>
+
+      <!-- Section 4: Events -->
+      <div class="section-title">Catering volume</div>
+
+      <div class="field">
+        <label>Events per month</label>
+        <select name="eventsPerMonth">
+          <option value="" disabled selected>Select a range</option>
+          <option value="1-5">1–5 events</option>
+          <option value="6-15">6–15 events</option>
+          <option value="16-30">16–30 events</option>
+          <option value="30+">30+ events</option>
+        </select>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        Start my free trial →
+      </button>
+
+      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email hello@casava.ai</div>
+
+      <p class="privacy-note">No credit card required. 30-day free trial. We'll reach out personally before activating your account.</p>
+
+    </form>
+
+    <!-- Success state -->
+    <div class="success-card" id="successCard">
+      <div class="success-icon">✓</div>
+      <h2>You're in!</h2>
+      <p>We received your details and will have your Casava account ready within 24 hours. Check your inbox for a welcome email.</p>
+      <div class="success-detail" id="successDetail"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const WEBHOOK_URL = 'https://casava-ai.app.n8n.cloud/webhook/onboard';
+
+  const form = document.getElementById('onboardForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  const successCard = document.getElementById('successCard');
+  const notifContactInput = document.getElementById('notifContactInput');
+  const dots = document.querySelectorAll('.progress-dot');
+
+  // Update notification contact placeholder based on channel selection
+  document.querySelectorAll('input[name="notificationChannel"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const val = radio.value;
+      if (val === 'email') {
+        notifContactInput.type = 'email';
+        notifContactInput.placeholder = 'you@yourbusiness.com';
+      } else {
+        notifContactInput.type = 'tel';
+        notifContactInput.placeholder = 'Phone number e.g. +14165550123';
+      }
+      updateProgress(2);
+    });
+  });
+
+  // Progress dots
+  function updateProgress(step) {
+    dots.forEach((dot, i) => {
+      dot.classList.remove('active', 'done');
+      if (i < step) dot.classList.add('done');
+      if (i === step) dot.classList.add('active');
+    });
+  }
+
+  // Track field interactions for progress
+  let filledSections = new Set();
+  form.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', () => {
+      const section = el.closest('.field')?.previousElementSibling?.classList.contains('section-title')
+        ? el.closest('.field')
+        : null;
+      if (el.name === 'ownerFirstName' || el.name === 'ownerLastName' || el.name === 'companyName') {
+        filledSections.add('identity');
+      } else if (el.name === 'ownerEmail' || el.name === 'ownerPhone') {
+        filledSections.add('contact');
+      } else if (el.name === 'notificationContact') {
+        filledSections.add('notif');
+      }
+      const count = filledSections.size;
+      if (count >= 3) updateProgress(2);
+      else if (count >= 1) updateProgress(1);
+    });
+  });
+
+  // Form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Basic validation
+    const required = form.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(field => {
+      if (!field.value.trim()) {
+        field.style.borderColor = 'rgba(231,111,81,0.6)';
+        valid = false;
+      } else {
+        field.style.borderColor = '';
+      }
+    });
+
+    if (!valid) {
+      errorMsg.textContent = 'Please fill in all required fields.';
+      errorMsg.classList.add('visible');
+      return;
+    }
+
+    errorMsg.classList.remove('visible');
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    const data = {
+      ownerName: `${form.ownerFirstName.value.trim()} ${form.ownerLastName.value.trim()}`,
+      ownerFirstName: form.ownerFirstName.value.trim(),
+      ownerLastName: form.ownerLastName.value.trim(),
+      companyName: form.companyName.value.trim(),
+      businessWebsite: form.businessWebsite.value.trim(),
+      ownerEmail: form.ownerEmail.value.trim(),
+      ownerPhone: form.ownerPhone.value.trim(),
+      notificationChannel: form.notificationChannel.value,
+      notificationContact: form.notificationContact.value.trim(),
+      eventsPerMonth: form.eventsPerMonth.value,
+      submittedAt: new Date().toISOString(),
+      source: 'onboarding-form'
+    };
+
+    try {
+      const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok || response.status === 200) {
+        // Show success
+        updateProgress(3);
+        form.style.display = 'none';
+        successCard.classList.add('visible');
+        document.getElementById('successDetail').innerHTML = `
+          <strong>Name:</strong> ${data.ownerName}<br>
+          <strong>Business:</strong> ${data.companyName}<br>
+          <strong>Email:</strong> ${data.ownerEmail}<br>
+          <strong>Notifications:</strong> ${data.notificationChannel} → ${data.notificationContact}
+        `;
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (err) {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+      errorMsg.textContent = 'Something went wrong. Please try again or email hello@casava.ai';
+      errorMsg.classList.add('visible');
+    }
+  });
+</script>
+</body>
+</html>
