@@ -75,7 +75,7 @@ tailwind.config = {
       <!-- Business logo (shown when businessLogoURL is set) -->
       <img id="nav-logo" src="" alt="" class="h-9 w-auto rounded hidden"/>
       <!-- Casava default logo (hidden when business logo is present) -->
-      <img id="nav-casava-logo" src="https://casava.ai/casava-logo.png" alt="casava.ai"
+      <img id="nav-casava-logo" src="https://casava.ai/casava_logo.webp" alt="casava.ai"
         class="h-8 w-auto"
         onerror="this.style.display='none'; document.getElementById('nav-business-name').classList.remove('hidden')"/>
       <div class="font-['Noto_Serif'] text-xl font-black text-[#6f5c2b] hidden" id="nav-business-name">Casava</div>
@@ -169,12 +169,15 @@ tailwind.config = {
           Owner Actions
         </h2>
         <div class="flex flex-wrap gap-3">
-          <button onclick="ownerApprove()" class="px-5 py-2.5 bg-[#006d42] text-white text-sm font-bold rounded-lg hover:bg-[#005231] transition-all">
+          <button onclick="ownerApprove()" id="btn-approve" class="px-5 py-2.5 bg-[#006d42] text-white text-sm font-bold rounded-lg hover:bg-[#005231] transition-all">
             Approve Quote
           </button>
           <a id="btn-edit-quote" href="#" class="px-5 py-2.5 bg-surface-container-high text-on-surface text-sm font-bold rounded-lg hover:bg-outline-variant/30 transition-all">
             Edit Quote
           </a>
+          <button onclick="ownerReject()" id="btn-reject" class="px-5 py-2.5 bg-white text-red-600 border border-red-200 text-sm font-bold rounded-lg hover:bg-red-50 transition-all">
+            Reject Quote
+          </button>
         </div>
         <p class="text-xs text-on-surface-variant">Approving will send the customer their quote link.</p>
       </section>
@@ -233,6 +236,7 @@ tailwind.config = {
 const QUOTE_DATA_WEBHOOK  = 'https://casava-ai.app.n8n.cloud/webhook/quote-data';
 const ACCEPT_WEBHOOK      = 'https://casava-ai.app.n8n.cloud/webhook/accept-quote';
 const APPROVE_WEBHOOK     = 'https://casava-ai.app.n8n.cloud/webhook/approve-quote';
+const REJECT_WEBHOOK      = 'https://casava-ai.app.n8n.cloud/webhook/reject-quote';
 
 const params     = new URLSearchParams(window.location.search);
 const BUSINESS_ID = params.get('businessID') || '';
@@ -441,7 +445,8 @@ async function loadQuote() {
       return;
     }
 
-    renderQuote(q);
+    window._quoteData = q;
+  renderQuote(q);
 
   } catch (err) {
     showError('Could not connect to the quote service. Please try again or contact us directly.');
@@ -501,6 +506,45 @@ async function ownerApprove() {
     btn.textContent = 'Approve Quote';
     btn.disabled = false;
     alert('Approval failed. Please try again.');
+  }
+}
+
+// ── OWNER REJECT ─────────────────────────────────────
+async function ownerReject() {
+  if (!confirm('Are you sure you want to reject this quote? The customer will be notified by email.')) return;
+
+  const btn = $('btn-reject');
+  btn.textContent = 'Rejecting…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(REJECT_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        quoteID: QUOTE_ID,
+        token: TOKEN,
+        businessID: BUSINESS_ID,
+        customerEmail: window._quoteData?.customerEmail || '',
+        customerName: window._quoteData?.customerName || '',
+        businessName: window._quoteData?.businessName || '',
+        rejectedAt: new Date().toISOString()
+      })
+    });
+
+    if (res.ok) {
+      btn.textContent = '✓ Rejected';
+      btn.classList.remove('text-red-600', 'border-red-200', 'hover:bg-red-50');
+      btn.classList.add('text-stone-400', 'border-stone-200');
+      $('btn-approve').disabled = true;
+      $('btn-approve').classList.add('opacity-40');
+    } else {
+      throw new Error(res.status);
+    }
+  } catch (err) {
+    btn.textContent = 'Reject Quote';
+    btn.disabled = false;
+    alert('Rejection failed. Please try again.');
   }
 }
 
