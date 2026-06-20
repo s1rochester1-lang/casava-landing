@@ -156,6 +156,16 @@
     margin-top: -0.2rem;
   }
 
+  .field-hint code {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--green-dark);
+  }
+
   input, select {
     width: 100%;
     background: var(--input-bg);
@@ -199,12 +209,13 @@
     padding: 0.6rem 1rem;
     background: var(--green-dark);
     border-radius: 6px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--green-mid);
     font-family: 'Courier New', monospace;
     display: none;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
+    line-height: 1.8;
   }
 
   .slug-preview span { color: var(--white); }
@@ -274,7 +285,7 @@
     margin-top: 0.5rem;
   }
 
-  .info-box strong { color: var(--orange); font-weight: 700; }
+  .info-box strong { color: var(--orange); font-weight: 700; font-size: 15px; }
 
   .submit-btn {
     width: 100%;
@@ -291,6 +302,9 @@
     transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
     letter-spacing: 0.02em;
     box-shadow: 3px 3px 0px var(--body);
+    text-align: center;
+    text-decoration: none;
+    display: block;
   }
 
   .submit-btn:hover {
@@ -399,6 +413,34 @@
     font-size: 14px;
   }
 
+  .connect-provider-section {
+    display: none;
+    margin-top: 1.75rem;
+    padding-top: 1.75rem;
+    border-top: 2px solid var(--orange-mid);
+    text-align: left;
+  }
+
+  .connect-provider-section .connect-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--body);
+    margin-bottom: 0.75rem;
+    text-align: center;
+  }
+
+  .connect-btn {
+    margin-top: 0;
+  }
+
+  .connect-subtext {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-top: 0.75rem;
+  }
+
   @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
   @media (max-width: 480px) {
@@ -446,10 +488,13 @@
       </div>
 
       <div class="field">
-        <label>Business slug <span class="req">*</span></label>
-        <p class="field-hint">Just your business name, short and simple. No need to add "catering" or "events". Lowercase, no spaces.</p>
+        <label>Choose your Casava web address <span class="req">*</span></label>
+        <p class="field-hint">This is a short nickname you create for your business — like a username. It becomes part of your menu link and inquiry email address. Lowercase words only, no spaces (dashes are OK). For example, a business called "Golden Spoon Catering" might choose <code>golden-spoon</code>.</p>
         <input type="text" name="businessSlug" id="businessSlug" placeholder="e.g. spice-kitchen" required pattern="[a-z0-9\-]+" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9\-]/g,''); updateSlugPreview()">
-        <div class="slug-preview" id="slugPreview">Your intake address: <span id="slugValue"></span>intake+<span id="slugDisplay"></span>@casava.ai</div>
+        <div class="slug-preview" id="slugPreview">
+          Menu link: <span id="slugMenuPreview"></span><br>
+          Intake email: <span id="slugEmailPreview"></span>
+        </div>
       </div>
 
       <div class="field">
@@ -586,10 +631,16 @@
         </div>
       </div>
 
-      <div class="field">
+      <!-- Shown for Square / Stripe — OAuth happens after submit, no manual token needed -->
+      <div class="info-box" id="oauthNote">
+        🔒 <strong>Secure connection:</strong> After you submit this form, you'll be taken to Square's website to securely connect your account — the same way you'd use "Sign in with Google." Casava never sees or stores your password, and you can disconnect at any time from your own Square dashboard.
+      </div>
+
+      <!-- Shown for QuickBooks / Other — manual ID still required -->
+      <div class="field" id="manualProviderField" style="display:none;">
         <label>Account / Location ID <span class="req">*</span></label>
-        <p class="field-hint" id="providerHint">Your Square Location ID — found in Square Dashboard under Account &amp; Settings</p>
-        <input type="text" name="paymentProviderID" id="paymentProviderID" placeholder="e.g. LG87ENM345SV8" required>
+        <p class="field-hint" id="providerHint">Your QuickBooks Company ID — found in QuickBooks under Settings &rarr; Account and settings</p>
+        <input type="text" name="paymentProviderID" id="paymentProviderID" placeholder="e.g. 123456789">
       </div>
 
       <button type="submit" class="submit-btn" id="submitBtn">
@@ -604,15 +655,23 @@
 
     <div class="success-card" id="successCard">
       <div class="success-icon">✓</div>
-      <h2>You're in!</h2>
-      <p>We received your details and will have your Casava account ready within 24 hours. Check your inbox for a welcome email.</p>
+      <h2 id="successHeadline">You're in!</h2>
+      <p id="successCopy">We received your details and will have your Casava account ready within 24 hours. Check your inbox for a welcome email.</p>
       <div class="success-detail" id="successDetail"></div>
+
+      <div class="connect-provider-section" id="connectProviderSection">
+        <p class="connect-label">One last step — connect your payment account:</p>
+        <a href="#" id="connectProviderBtn" class="submit-btn connect-btn">Connect Square →</a>
+        <p class="connect-subtext">You can also do this later — we'll follow up by email.</p>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
   const WEBHOOK_URL = "https://casava-ai.app.n8n.cloud/webhook/onboard";
+  const SQUARE_APP_ID = "sq0idp-4yF0xYAmECN1jC3kLh7-gw";
+  const STRIPE_CLIENT_ID = "ca_UjSklyvYkQue4eMLICzDr6OyUZerZpiQ";
 
   const form = document.getElementById("onboardForm");
   const submitBtn = document.getElementById("submitBtn");
@@ -620,35 +679,52 @@
   const successCard = document.getElementById("successCard");
   const notifContactInput = document.getElementById("notifContactInput");
   const slugPreview = document.getElementById("slugPreview");
-  const slugDisplay = document.getElementById("slugDisplay");
+  const oauthNote = document.getElementById("oauthNote");
+  const manualProviderField = document.getElementById("manualProviderField");
+  const paymentProviderIDInput = document.getElementById("paymentProviderID");
+  const connectProviderSection = document.getElementById("connectProviderSection");
+  const connectProviderBtn = document.getElementById("connectProviderBtn");
 
   function updateSlugPreview() {
     const val = document.getElementById("businessSlug").value.trim();
     if (val) {
-      slugDisplay.textContent = val;
+      document.getElementById("slugMenuPreview").textContent = "casava-ai-menu.vercel.app/?businessID=" + val;
+      document.getElementById("slugEmailPreview").textContent = "intake+" + val + "@casava.ai";
       slugPreview.style.display = "block";
     } else {
       slugPreview.style.display = "none";
     }
   }
 
+  const oauthNoteText = {
+    square: '🔒 <strong>Secure connection:</strong> After you submit this form, you\'ll be taken to Square\'s website to securely connect your account — the same way you\'d use "Sign in with Google." Casava never sees or stores your password, and you can disconnect at any time from your own Square dashboard.',
+    stripe: '🔒 <strong>Secure connection:</strong> After you submit this form, you\'ll be taken to Stripe\'s website to securely connect your account — the same way you\'d use "Sign in with Google." Casava never sees or stores your password, and you can disconnect at any time from your own Stripe dashboard.'
+  };
+
   const providerHints = {
-    square: 'Your Square Location ID — found in Square Dashboard under Account &amp; Settings',
-    stripe: 'Your Stripe Account ID — found in Stripe Dashboard under Settings &rarr; Account details',
     quickbooks: 'Your QuickBooks Company ID — found in QuickBooks under Settings &rarr; Account and settings',
     other: 'Enter your payment provider account or location ID'
   };
 
+  const providerPlaceholders = {
+    quickbooks: 'e.g. 123456789',
+    other: 'Your account or location ID'
+  };
+
   document.querySelectorAll("input[name='paymentProvider']").forEach(radio => {
     radio.addEventListener("change", () => {
-      document.getElementById("providerHint").innerHTML = providerHints[radio.value] || providerHints.other;
-      const placeholder = {
-        square: 'e.g. LG87ENM345SV8',
-        stripe: 'e.g. acct_1234567890',
-        quickbooks: 'e.g. 123456789',
-        other: 'Your account or location ID'
-      };
-      document.getElementById("paymentProviderID").placeholder = placeholder[radio.value] || '';
+      if (radio.value === "square" || radio.value === "stripe") {
+        oauthNote.style.display = "block";
+        oauthNote.innerHTML = oauthNoteText[radio.value];
+        manualProviderField.style.display = "none";
+        paymentProviderIDInput.removeAttribute("required");
+      } else {
+        oauthNote.style.display = "none";
+        manualProviderField.style.display = "block";
+        document.getElementById("providerHint").innerHTML = providerHints[radio.value] || providerHints.other;
+        paymentProviderIDInput.setAttribute("required", "required");
+        paymentProviderIDInput.placeholder = providerPlaceholders[radio.value] || '';
+      }
     });
   });
 
@@ -663,6 +739,17 @@
       }
     });
   });
+
+  function buildSquareOAuthURL(slug) {
+    return "https://connect.squareup.com/oauth2/authorize?client_id=" + SQUARE_APP_ID +
+      "&scope=ORDERS_READ+ORDERS_WRITE+INVOICES_READ+INVOICES_WRITE+CUSTOMERS_READ+CUSTOMERS_WRITE+MERCHANT_PROFILE_READ" +
+      "&session=false&state=" + encodeURIComponent(slug);
+  }
+
+  function buildStripeOAuthURL(slug) {
+    return "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=" + STRIPE_CLIENT_ID +
+      "&scope=read_write&state=" + encodeURIComponent(slug);
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -728,6 +815,17 @@
           "<strong>Catering email:</strong> " + data.cateringEmail + "<br>" +
           "<strong>Your Casava intake address:</strong> <span class='intake-highlight'>" + intakeAddress + "</span><br>" +
           "<strong>Notifications:</strong> " + data.notificationChannel + " → " + data.notificationContact;
+
+        if (data.paymentProvider === "square" || data.paymentProvider === "stripe") {
+          connectProviderSection.style.display = "block";
+          if (data.paymentProvider === "square") {
+            connectProviderBtn.textContent = "Connect Square →";
+            connectProviderBtn.href = buildSquareOAuthURL(slug);
+          } else {
+            connectProviderBtn.textContent = "Connect Stripe →";
+            connectProviderBtn.href = buildStripeOAuthURL(slug);
+          }
+        }
       } else {
         throw new Error("Server error");
       }
@@ -737,6 +835,18 @@
       errorMsg.classList.add("visible");
     }
   });
+
+  // Detect return from Square/Stripe OAuth and show a connected confirmation
+  (function checkProviderConnected() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("square_connected") === "true" || params.get("stripe_connected") === "true") {
+      form.style.display = "none";
+      successCard.classList.add("visible");
+      document.getElementById("successHeadline").textContent = "Payment connected!";
+      document.getElementById("successCopy").textContent = "Your payment account is now linked to Casava. We'll be in touch shortly to finish setting up your account.";
+      document.getElementById("successDetail").style.display = "none";
+    }
+  })();
 </script>
 </body>
 </html>
