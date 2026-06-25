@@ -370,6 +370,12 @@ function renderQuote(q) {
     infoCell('Event Time', q.eventTime) +
     infoCell('Guests', q.numberOfGuests ? q.numberOfGuests + ' people' : '') +
     infoCell('Service Type', q.cateringType) +
+    (q.serviceTime ? infoCell(
+  q.cateringType === 'Pick Up' ? 'Pickup Time' :
+  q.cateringType === 'Delivery' ? 'Delivery Time' :
+  q.cateringType === 'Full Service Catering' ? 'Set Up Time (Start)' : 'Service Time',
+  q.serviceTime
+) : '') +
     (q.location ? `<div class="col-span-2">${infoCell('Location', q.location)}</div>` : '') +
     (q.allergies && q.allergies !== 'None' ? `<div class="col-span-2">${infoCell('Allergies / Restrictions', q.allergies)}</div>` : '');
 
