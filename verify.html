@@ -67,7 +67,6 @@
     transition: color 0.2s;
     letter-spacing: 0.02em;
   }
-
   .nav-link:hover { color: var(--orange); }
 
   .page {
@@ -105,7 +104,6 @@
     box-shadow: 3px 3px 0px var(--body);
   }
 
-  /* Icon medallion — hard-shadow brutalist circle */
   .medallion {
     width: 76px;
     height: 76px;
@@ -119,7 +117,7 @@
   }
   .medallion.success { background: var(--green-dark); }
   .medallion.error   { background: var(--orange); }
-  .medallion.loading { background: var(--green-dark); box-shadow: 4px 4px 0px var(--body); }
+  .medallion.loading { background: var(--green-dark); }
   .medallion svg { width: 38px; height: 38px; display: block; }
 
   h1 {
@@ -196,7 +194,6 @@
     padding: 0 1.5rem 2rem;
   }
 
-  /* spinner */
   .spinner {
     width: 34px;
     height: 34px;
@@ -207,7 +204,6 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* check / cross draw-in (enhancement only; never gates visibility) */
   .stroke { stroke-dasharray: 48; stroke-dashoffset: 48; animation: draw .45s .1s ease forwards; }
   .stroke.s2 { animation-delay: .28s; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
@@ -230,14 +226,14 @@
 <div class="page">
   <div class="card" role="status" aria-live="polite">
 
-    <!-- ===== LOADING ===== -->
+    <!-- LOADING -->
     <div id="state-loading">
       <div class="medallion loading"><div class="spinner"></div></div>
       <h1>Confirming your <em>email…</em></h1>
       <p class="sub">Hang tight while we verify your link. This only takes a moment.</p>
     </div>
 
-    <!-- ===== SUCCESS ===== -->
+    <!-- SUCCESS -->
     <div id="state-success" hidden>
       <div class="badge">Account Active</div>
       <div class="medallion success">
@@ -250,7 +246,7 @@
       <a class="btn" href="https://casava.ai">Go to Casava →</a>
     </div>
 
-    <!-- ===== ERROR ===== -->
+    <!-- ERROR -->
     <div id="state-error" hidden>
       <div class="medallion error">
         <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -260,8 +256,8 @@
       </div>
       <h1>This link <em>didn't work</em></h1>
       <p class="sub">This verification link is invalid or has expired. Reach out and our team will get you sorted.</p>
-      <a class="btn btn-secondary" href="/cdn-cgi/l/email-protection#03707673736c7177436062706275622d626a">Contact support</a>
-      <p class="footnote">or email us directly at <a href="/cdn-cgi/l/email-protection#77040207071805033714160416011659161e"><span class="__cf_email__" data-cfemail="a5d6d0d5d5cad7d1e5c6c4d6c4d3c48bc4cc">[email&#160;protected]</span></a></p>
+      <a class="btn btn-secondary" href="mailto:support@casava.ai">Contact support</a>
+      <p class="footnote">or email us directly at <a href="mailto:support@casava.ai">support@casava.ai</a></p>
     </div>
 
   </div>
@@ -269,17 +265,14 @@
 
 <div class="pagefoot">© <span id="yr"></span> Casava · Catering operations on autopilot</div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // ---- State controller (the verification flow plugs in here) ----
-  // Call showState('loading' | 'success' | 'error').
   window.showState = function (name) {
     ['loading', 'success', 'error'].forEach(function (s) {
       var el = document.getElementById('state-' + s);
       if (el) el.hidden = (s !== name);
     });
-    // restart icon draw-in for the newly shown state
     var active = document.getElementById('state-' + name);
     if (active) {
       active.querySelectorAll('.stroke').forEach(function (p) {
@@ -288,8 +281,37 @@
     }
   };
 
-  // Default view while the verification request runs:
   showState('loading');
+
+  // Verification logic
+  (async function verify() {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    const businessID = params.get('businessID');
+
+    if (!token || !businessID) {
+      showState('error');
+      return;
+    }
+
+    try {
+      const url = 'https://casava-ai.app.n8n.cloud/webhook/verify-email'
+        + '?token=' + encodeURIComponent(token)
+        + '&businessID=' + encodeURIComponent(businessID);
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.verified === true) {
+        showState('success');
+      } else {
+        showState('error');
+      }
+    } catch (err) {
+      console.error('Verification error:', err);
+      showState('error');
+    }
+  })();
 </script>
 
 </body>
