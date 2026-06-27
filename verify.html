@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify your email — Casava</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #005236;
+    --green-light: #d4f5e6;
+    --green-mid: #9FE1CB;
+    --orange: #F5641B;
+    --orange-light: #fde8d8;
+    --orange-mid: #f5c4a0;
+    --white: #ffffff;
+    --surface: #f0faf5;
+    --body: #002a1c;
+    --muted: #3a6b52;
+    --border-light: #9FE1CB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--surface);
+    color: var(--body);
+    font-family: "DM Sans", -apple-system, sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav {
+    background: var(--white);
+    border-bottom: 3px solid var(--orange);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: "DM Sans", sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--green-dark);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo .dot { color: var(--body); }
+  .nav-logo .i { position: relative; display: inline-block; }
+  .nav-logo .i .tittle {
+    position: absolute; left: 50%; transform: translateX(-50%); top: 0.04em;
+    width: 0.16em; height: 0.16em; border-radius: 50%; background: var(--orange);
+  }
+
+  .nav-link {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--green-dark);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-link:hover { color: var(--orange); }
+
+  .page {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .card {
+    background: var(--white);
+    border: 2px solid var(--green-dark);
+    border-top: 5px solid var(--orange);
+    border-radius: 16px;
+    padding: 2.75rem 2.25rem;
+    box-shadow: 6px 6px 0px var(--orange);
+    width: 100%;
+    max-width: 440px;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    border: 2px solid var(--orange);
+    box-shadow: 3px 3px 0px var(--body);
+  }
+
+  /* Icon medallion — hard-shadow brutalist circle */
+  .medallion {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border: 2px solid var(--body);
+    box-shadow: 4px 4px 0px var(--body);
+  }
+  .medallion.success { background: var(--green-dark); }
+  .medallion.error   { background: var(--orange); }
+  .medallion.loading { background: var(--green-dark); box-shadow: 4px 4px 0px var(--body); }
+  .medallion svg { width: 38px; height: 38px; display: block; }
+
+  h1 {
+    font-family: "DM Serif Display", Georgia, serif;
+    font-size: clamp(26px, 5vw, 32px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--body);
+    margin-bottom: 0.7rem;
+  }
+  h1 em { font-style: italic; color: var(--green-dark); }
+
+  .sub {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    background: var(--orange);
+    border: 2px solid var(--body);
+    border-radius: 10px;
+    color: var(--white);
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0.95rem 1rem;
+    margin-top: 1.85rem;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.02em;
+    box-shadow: 3px 3px 0px var(--body);
+    text-align: center;
+    text-decoration: none;
+  }
+  .btn:hover {
+    background: #d94e0d;
+    transform: translateY(-2px);
+    box-shadow: 5px 5px 0px var(--body), 0 0 0 3px var(--orange-mid);
+  }
+  .btn:active { transform: translateY(0); box-shadow: 1px 1px 0px var(--body); }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--green-dark);
+    box-shadow: 3px 3px 0px var(--green-dark);
+  }
+  .btn-secondary:hover {
+    background: var(--surface);
+    box-shadow: 5px 5px 0px var(--green-dark), 0 0 0 3px var(--green-mid);
+  }
+  .btn-secondary:active { box-shadow: 1px 1px 0px var(--green-dark); }
+
+  .footnote {
+    margin-top: 1.15rem;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .footnote a { color: var(--green-dark); text-decoration: none; font-weight: 700; }
+  .footnote a:hover { color: var(--orange); text-decoration: underline; }
+
+  .pagefoot {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    padding: 0 1.5rem 2rem;
+  }
+
+  /* spinner */
+  .spinner {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 3.5px solid rgba(255,255,255,0.28);
+    border-top-color: var(--white);
+    animation: spin 0.75s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* check / cross draw-in (enhancement only; never gates visibility) */
+  .stroke { stroke-dasharray: 48; stroke-dashoffset: 48; animation: draw .45s .1s ease forwards; }
+  .stroke.s2 { animation-delay: .28s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  [hidden] { display: none !important; }
+
+  @media (max-width: 480px) {
+    .nav { padding: 0.85rem 1rem; }
+    .card { padding: 2.25rem 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="https://casava.ai" class="nav-logo">casava<span class="dot">.</span>a<span class="i">ı<span class="tittle"></span></span></a>
+  <a href="https://casava.ai" class="nav-link">← Back to site</a>
+</nav>
+
+<div class="page">
+  <div class="card" role="status" aria-live="polite">
+
+    <!-- ===== LOADING ===== -->
+    <div id="state-loading">
+      <div class="medallion loading"><div class="spinner"></div></div>
+      <h1>Confirming your <em>email…</em></h1>
+      <p class="sub">Hang tight while we verify your link. This only takes a moment.</p>
+    </div>
+
+    <!-- ===== SUCCESS ===== -->
+    <div id="state-success" hidden>
+      <div class="badge">Account Active</div>
+      <div class="medallion success">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="stroke" d="M14 27.5 L22.5 36 L39 17.5" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1>Email <em>confirmed!</em></h1>
+      <p class="sub">Your Casava account is now active. Welcome aboard — let's get your catering on autopilot.</p>
+      <a class="btn" href="https://casava.ai">Go to Casava →</a>
+    </div>
+
+    <!-- ===== ERROR ===== -->
+    <div id="state-error" hidden>
+      <div class="medallion error">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="stroke" d="M18 18 L34 34" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+          <path class="stroke s2" d="M34 18 L18 34" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>This link <em>didn't work</em></h1>
+      <p class="sub">This verification link is invalid or has expired. Reach out and our team will get you sorted.</p>
+      <a class="btn btn-secondary" href="/cdn-cgi/l/email-protection#03707673736c7177436062706275622d626a">Contact support</a>
+      <p class="footnote">or email us directly at <a href="/cdn-cgi/l/email-protection#77040207071805033714160416011659161e"><span class="__cf_email__" data-cfemail="a5d6d0d5d5cad7d1e5c6c4d6c4d3c48bc4cc">[email&#160;protected]</span></a></p>
+    </div>
+
+  </div>
+</div>
+
+<div class="pagefoot">© <span id="yr"></span> Casava · Catering operations on autopilot</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // ---- State controller (the verification flow plugs in here) ----
+  // Call showState('loading' | 'success' | 'error').
+  window.showState = function (name) {
+    ['loading', 'success', 'error'].forEach(function (s) {
+      var el = document.getElementById('state-' + s);
+      if (el) el.hidden = (s !== name);
+    });
+    // restart icon draw-in for the newly shown state
+    var active = document.getElementById('state-' + name);
+    if (active) {
+      active.querySelectorAll('.stroke').forEach(function (p) {
+        p.style.animation = 'none'; void p.offsetWidth; p.style.animation = '';
+      });
+    }
+  };
+
+  // Default view while the verification request runs:
+  showState('loading');
+</script>
+
+</body>
+</html>
