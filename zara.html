@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zara — your Casava configuration assistant</title>
+<meta name="description" content="Zara is your owner-only assistant. Message her in plain language to change settings — she confirms with YES, and it's saved. No dashboard, no login.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Casava">
+<meta property="og:title" content="Zara — your Casava configuration assistant">
+<meta property="og:description" content="Zara is your owner-only assistant. Message her in plain language to change settings — she confirms with YES, and it's saved. No dashboard, no login.">
+<meta property="og:url" content="https://casava.ai/zara">
+<meta name="twitter:card" content="summary">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#f8faf8;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:rgba(245,100,27,.22)}
+  summary{list-style:none}
+  summary::-webkit-details-marker{display:none}
+  @media (max-width:880px){
+    [data-nav-links]{display:none !important;}
+    [data-config]{grid-template-columns:1fr !important;}
+    [data-flow]{grid-template-columns:1fr !important;}
+    [data-examples]{grid-template-columns:1fr !important;}
+  }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#005231">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#005231"/>
+    <text x="600" y="400" font-family="Manrope, sans-serif" font-size="90" font-weight="900" fill="#f8faf8" text-anchor="middle" dominant-baseline="central">Zara</text>
+  </svg>
+</template>
+
+<main data-screen-label="Zara Product" style="--green-dark:#005231;--green-mid:#006d42;--orange:#F5641B;--orange-light:#fbe3d2;--bg:#f8faf8;--surface:#f1f5f0;--body:#1e1b17;--muted:#4c463a;--border:#e2ece6;font-family:'Inter',system-ui,sans-serif;color:var(--body);background:var(--bg);overflow-x:hidden">
+
+  <!-- NAV -->
+  <nav style="background:#fff;border-bottom:1px solid var(--border);padding:0 clamp(20px,4vw,48px);height:68px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200">
+    <a href="./Casava Landing.dc.html" style="font-family:'Manrope',sans-serif;font-size:23px;font-weight:900;color:var(--green-dark);letter-spacing:-.5px;text-decoration:none">casava<span style="color:var(--body)">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
+    <div style="display:flex;align-items:center;gap:clamp(14px,3vw,30px)">
+      <div style="display:flex;align-items:center;gap:clamp(14px,3vw,30px)" data-nav-links>
+        <a href="./Casava Landing.dc.html#how" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">How it works</a>
+        <details style="position:relative">
+          <summary style="font-size:14px;font-weight:500;color:var(--body);display:flex;align-items:center;gap:5px;cursor:pointer">Products<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"></path></svg></summary>
+          <div style="position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 40px rgba(30,27,23,.14);padding:8px;display:flex;flex-direction:column;gap:2px;min-width:170px;z-index:50">
+            <a href="./Casava Product.dc.html" style="font-size:13.5px;font-weight:600;color:var(--body);text-decoration:none;padding:9px 12px;border-radius:9px" style-hover="background:var(--surface)">Casava</a>
+            <a href="./Zara.dc.html" style="font-size:13.5px;font-weight:700;color:var(--green-dark);text-decoration:none;padding:9px 12px;border-radius:9px;background:var(--surface)">Zara</a>
+            <a href="./Expo.dc.html" style="font-size:13.5px;font-weight:600;color:var(--body);text-decoration:none;padding:9px 12px;border-radius:9px" style-hover="background:var(--surface)">Expo</a>
+          </div>
+        </details>
+        <a href="./Pricing.dc.html" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">Pricing</a>
+        <a href="./FAQ.dc.html" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">FAQ</a>
+      </div>
+      <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap" style-hover="filter:brightness(1.06)">Start free trial</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header style="padding:clamp(60px,8vw,96px) clamp(20px,4vw,48px) clamp(40px,6vw,60px);text-align:center">
+    <div style="max-width:680px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:16px">Meet Zara</div>
+      <h1 style="font-family:'Manrope',sans-serif;font-size:clamp(38px,5.5vw,58px);font-weight:900;line-height:1.05;letter-spacing:-1px;margin:0 0 18px">Meet Zara.</h1>
+      <p style="font-size:18px;color:var(--muted);line-height:1.6;margin:0">Your Casava assistant. She manages your business settings over chat — just message her naturally.</p>
+    </div>
+  </header>
+
+  <!-- HOW IT WORKS: 3 step + mockup -->
+  <section style="padding:0 clamp(20px,4vw,48px) clamp(56px,7vw,84px)">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,56px);align-items:center" data-flow>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <span style="width:32px;height:32px;border-radius:50%;background:var(--green-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:900;font-size:14px;flex-shrink:0">1</span>
+          <div><div style="font-size:16px;font-weight:800;margin-bottom:4px">You message Zara</div><div style="font-size:14.5px;color:var(--muted);line-height:1.55">Tell her what to change, in plain language — no forms, no dashboard.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <span style="width:32px;height:32px;border-radius:50%;background:var(--green-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:900;font-size:14px;flex-shrink:0">2</span>
+          <div><div style="font-size:16px;font-weight:800;margin-bottom:4px">Zara proposes the change</div><div style="font-size:14.5px;color:var(--muted);line-height:1.55">She summarizes exactly what will update, before touching anything.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <span style="width:32px;height:32px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:900;font-size:14px;flex-shrink:0">3</span>
+          <div><div style="font-size:16px;font-weight:800;margin-bottom:4px">You confirm with YES</div><div style="font-size:14.5px;color:var(--muted);line-height:1.55">One word, and it's written straight to your config. Done.</div></div>
+        </div>
+      </div>
+      <div style="background:var(--body);border-radius:20px;padding:20px;box-shadow:0 24px 50px rgba(30,27,23,.18)">
+        <div style="display:flex;align-items:center;gap:9px;padding:0 4px 14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px">
+          <span style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--green-dark),var(--green-mid));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px">Z</span>
+          <div><div style="color:#fff;font-size:13px;font-weight:700;line-height:1">Zara · your assistant</div><div style="color:#9FE1CB;font-size:10.5px">owner only</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;min-height:180px">
+          <div style="align-self:flex-end;max-width:82%;background:var(--green-dark);color:#fff;font-size:13px;line-height:1.5;padding:10px 13px;border-radius:14px 14px 4px 14px">Change my deposit split to 50 / 50 💸</div>
+          <div style="align-self:flex-start;max-width:86%;background:rgba(255,255,255,.07);color:#f2ece3;font-size:13px;line-height:1.5;padding:10px 13px;border-radius:4px 14px 14px 14px">Got it. Set <strong style="color:#fff">Deposit</strong> to <strong style="color:#fff">50%</strong> and <strong style="color:#fff">Final payment</strong> to <strong style="color:#fff">50%</strong> (was 30 / 70)? Reply <strong style="color:#9FE1CB">YES</strong> to confirm.</div>
+          <div style="align-self:flex-end;background:var(--green-dark);color:#fff;font-size:13px;font-weight:700;line-height:1.5;padding:9px 17px;border-radius:14px 14px 4px 14px">YES</div>
+          <div style="align-self:flex-start;max-width:86%;background:rgba(255,255,255,.07);color:#f2ece3;font-size:13px;line-height:1.5;padding:10px 13px;border-radius:4px 14px 14px 14px"><span style="color:#9FE1CB;font-weight:800">✓</span> Saved. Deposit is now 50 / 50.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT ZARA CAN CONFIGURE -->
+  <section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:clamp(52px,7vw,76px) clamp(20px,4vw,48px)">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:36px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px">What Zara can configure</div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(26px,3.6vw,38px);font-weight:900;line-height:1.1;letter-spacing:-.5px;margin:0">Anything you'd otherwise dig through settings for.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px" data-config>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px"><div style="font-size:15px;font-weight:800;margin-bottom:6px">Tax rate</div><div style="font-size:13.5px;color:var(--muted);line-height:1.5">Applied automatically to every quote.</div></div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px"><div style="font-size:15px;font-weight:800;margin-bottom:6px">Delivery fee</div><div style="font-size:13.5px;color:var(--muted);line-height:1.5">Flat, tiered, or waived above a threshold.</div></div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px"><div style="font-size:15px;font-weight:800;margin-bottom:6px">Deposit %</div><div style="font-size:13.5px;color:var(--muted);line-height:1.5">The split between deposit and balance.</div></div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px"><div style="font-size:15px;font-weight:800;margin-bottom:6px">Payment terms</div><div style="font-size:13.5px;color:var(--muted);line-height:1.5">Due dates and notice periods.</div></div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px"><div style="font-size:15px;font-weight:800;margin-bottom:6px">Business info</div><div style="font-size:13.5px;color:var(--muted);line-height:1.5">Hours, contact details, service area.</div></div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px"><div style="font-size:15px;font-weight:800;margin-bottom:6px">Menu &amp; prices</div><div style="font-size:13.5px;color:var(--muted);line-height:1.5">Add, remove, or reprice items.</div></div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px"><div style="font-size:15px;font-weight:800;margin-bottom:6px">Notification prefs</div><div style="font-size:13.5px;color:var(--muted);line-height:1.5">Which channel and number gets alerts.</div></div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px"><div style="font-size:15px;font-weight:800;margin-bottom:6px">And more</div><div style="font-size:13.5px;color:var(--muted);line-height:1.5">Most config changes, without a login.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXAMPLE CONVERSATIONS -->
+  <section style="padding:clamp(52px,7vw,76px) clamp(20px,4vw,48px)">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:36px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px">In her own words</div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(26px,3.6vw,38px);font-weight:900;line-height:1.1;letter-spacing:-.5px;margin:0">Real settings, changed in one message.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" data-examples>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:9px">
+          <div style="align-self:flex-end;max-width:88%;background:var(--green-dark);color:#fff;font-size:12.5px;line-height:1.45;padding:9px 12px;border-radius:12px 12px 3px 12px">Change my delivery fee to $65</div>
+          <div style="align-self:flex-start;max-width:92%;background:var(--surface);color:var(--body);font-size:12.5px;line-height:1.45;padding:9px 12px;border-radius:3px 12px 12px 12px">Set delivery fee to $65 (was $50)? Reply YES to confirm.</div>
+          <div style="align-self:flex-end;background:var(--green-dark);color:#fff;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:12px 12px 3px 12px">YES</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:9px">
+          <div style="align-self:flex-end;max-width:88%;background:var(--green-dark);color:#fff;font-size:12.5px;line-height:1.45;padding:9px 12px;border-radius:12px 12px 3px 12px">Bookings under 48 hrs notice now need a rush fee</div>
+          <div style="align-self:flex-start;max-width:92%;background:var(--surface);color:var(--body);font-size:12.5px;line-height:1.45;padding:9px 12px;border-radius:3px 12px 12px 12px">Got it — add a rush fee for requests inside 48 hours. What amount?</div>
+          <div style="align-self:flex-end;background:var(--green-dark);color:#fff;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:12px 12px 3px 12px">$40</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:9px">
+          <div style="align-self:flex-end;max-width:88%;background:var(--green-dark);color:#fff;font-size:12.5px;line-height:1.45;padding:9px 12px;border-radius:12px 12px 3px 12px">Send alerts to my other number too</div>
+          <div style="align-self:flex-start;max-width:92%;background:var(--surface);color:var(--body);font-size:12.5px;line-height:1.45;padding:9px 12px;border-radius:3px 12px 12px 12px">Adding a backup notification contact. Reply YES to confirm.</div>
+          <div style="align-self:flex-end;background:var(--green-dark);color:#fff;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:12px 12px 3px 12px">YES</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHANNELS -->
+  <section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:clamp(40px,5vw,56px) clamp(20px,4vw,48px)">
+    <div style="max-width:1180px;margin:0 auto;text-align:center">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Supported channels</div>
+      <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+        <span style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);border-radius:99px;padding:6px 14px 6px 8px"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#25D366" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"></path><path fill="#fff" d="M16.7 14.3c-.3-.1-1.6-.8-1.9-.9s-.4-.1-.6.2-.6.8-.8 1-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.3 0-.4.1-.6l.4-.4.3-.5v-.5l-.9-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3 1 2.6 1.1 2.7s1.9 2.9 4.5 4c1 .5 1.8.7 2.4.6.7 0 1.6-.6 1.9-1.3s.2-1.2.1-1.3z"></path></svg><span style="font-size:13px;font-weight:700;color:var(--body)">WhatsApp</span></span>
+        <span style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);border-radius:99px;padding:6px 14px 6px 8px;opacity:.6"><svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="10" fill="#229ED9"></circle><path fill="#fff" d="M5.5 11.8 16.3 7c.5-.2 1 .1.8.9l-1.8 8.6c-.1.6-.5.7-1 .4l-2.6-1.9-1.3 1.2c-.1.2-.3.3-.5.3l.2-2.8 5.1-4.6c.2-.2 0-.3-.3-.1L8 13l-2.6-.8c-.5-.2-.5-.6.1-.9z"></path></svg><span style="font-size:13px;font-weight:600;color:var(--body)">Telegram</span><span style="font-size:9px;font-weight:700;color:var(--muted)">SOON</span></span>
+        <span style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);border-radius:99px;padding:6px 14px 6px 8px;opacity:.6"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#34C759" d="M12 4C6.9 4 3 7.4 3 11.6c0 2.3 1.2 4.4 3.1 5.7-.1 1-.5 2-1.1 2.7 1.3-.1 2.6-.6 3.6-1.4 1 .3 2.1.5 3.4.5 5.1 0 9-3.4 9-7.5S17.1 4 12 4z"></path></svg><span style="font-size:13px;font-weight:600;color:var(--body)">SMS</span><span style="font-size:9px;font-weight:700;color:var(--muted)">SOON</span></span>
+        <span style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);border-radius:99px;padding:6px 14px 6px 8px;opacity:.6"><svg viewBox="0 0 48 48" width="18" height="18"><path fill="#4caf50" d="M45 16.2l-5 2.75-5 4.75L35 40h7a3 3 0 0 0 3-3V16.2z"></path><path fill="#1e88e5" d="M3 16.2l3.6 1.7L13 23.7V40H6a3 3 0 0 1-3-3V16.2z"></path><polygon fill="#e53935" points="35,11.2 24,19.45 13,11.2 12,17 13,23.7 24,31.95 35,23.7 36,17"></polygon><path fill="#c62828" d="M3 12.3v3.9l10 7.5V11.2L9.9 8.9A3 3 0 0 0 3 12.3z"></path><path fill="#fbc02d" d="M45 12.3v3.9l-10 7.5V11.2l3.1-2.3A3 3 0 0 1 45 12.3z"></path></svg><span style="font-size:13px;font-weight:600;color:var(--body)">Email</span><span style="font-size:9px;font-weight:700;color:var(--muted)">SOON</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding:clamp(56px,7vw,84px) clamp(20px,4vw,48px)">
+    <div style="max-width:660px;margin:0 auto;text-align:center;background:var(--green-dark);border-radius:24px;padding:clamp(40px,6vw,52px) clamp(28px,5vw,48px)">
+      <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(24px,3.2vw,32px);font-weight:900;color:#fff;line-height:1.2;letter-spacing:-.4px;margin:0 0 22px">Let Zara manage your settings.</h2>
+      <a href="https://casava.ai/onboard.html" style="display:inline-block;background:#fff;color:var(--green-dark);padding:15px 36px;border-radius:999px;font-size:16px;font-weight:700;text-decoration:none" style-hover="filter:brightness(.96)">Start your free trial →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--body);padding:32px clamp(20px,4vw,48px);display:flex;flex-direction:column;gap:18px">
+    <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
+      <a href="./Casava Landing.dc.html" style="font-family:'Manrope',sans-serif;font-size:19px;font-weight:900;color:#fff;text-decoration:none">casava<span style="color:#fff">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a89e8f">Products</div>
+        <a href="./Casava Product.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Casava</a>
+        <a href="./Zara.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Zara</a>
+        <a href="./Expo.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Expo</a>
+      </div>
+      <div style="display:flex;gap:24px">
+        <a href="./FAQ.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
+        <a href="./Privacy.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
+        <a href="./Terms.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
+        <a href="/cdn-cgi/l/email-protection#0b62656d644b686a786a7d6a256a62" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="5d34333b321d3e3c2e3c2b3c733c34">[email&#160;protected]</span></a>
+      </div>
+    </div>
+    <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
+      <p style="font-size:12.5px;color:#7a7264;margin:0">© 2026 Casava · Catering automation for food businesses</p>
+      <p style="font-size:12.5px;color:#7a7264;margin:0">Meal prep services coming soon</p>
+    </div>
+  </footer>
+
+</main>
+
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>
