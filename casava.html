@@ -55,20 +55,20 @@
 
   <!-- NAV -->
   <nav style="background:#fff;border-bottom:1px solid var(--border);padding:0 clamp(20px,4vw,48px);height:68px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200">
-    <a href="./Casava Landing.dc.html" style="font-family:'Manrope',sans-serif;font-size:23px;font-weight:900;color:var(--green-dark);letter-spacing:-.5px;text-decoration:none">casava<span style="color:var(--body)">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
+    <a href="/" style="font-family:'Manrope',sans-serif;font-size:23px;font-weight:900;color:var(--green-dark);letter-spacing:-.5px;text-decoration:none">casava<span style="color:var(--body)">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
     <div style="display:flex;align-items:center;gap:clamp(14px,3vw,30px)">
       <div style="display:flex;align-items:center;gap:clamp(14px,3vw,30px)" data-nav-links>
-        <a href="./Casava Landing.dc.html#how" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">How it works</a>
+        <a href="/#how" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">How it works</a>
         <details style="position:relative">
           <summary style="font-size:14px;font-weight:500;color:var(--body);display:flex;align-items:center;gap:5px;cursor:pointer">Products<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"></path></svg></summary>
           <div style="position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 40px rgba(30,27,23,.14);padding:8px;display:flex;flex-direction:column;gap:2px;min-width:170px;z-index:50">
-            <a href="./Casava Product.dc.html" style="font-size:13.5px;font-weight:700;color:var(--green-dark);text-decoration:none;padding:9px 12px;border-radius:9px;background:var(--surface)">Casava</a>
-            <a href="./Zara.dc.html" style="font-size:13.5px;font-weight:600;color:var(--body);text-decoration:none;padding:9px 12px;border-radius:9px" style-hover="background:var(--surface)">Zara</a>
-            <a href="./Expo.dc.html" style="font-size:13.5px;font-weight:600;color:var(--body);text-decoration:none;padding:9px 12px;border-radius:9px" style-hover="background:var(--surface)">Expo</a>
+            <a href="/casava" style="font-size:13.5px;font-weight:700;color:var(--green-dark);text-decoration:none;padding:9px 12px;border-radius:9px;background:var(--surface)">Casava</a>
+            <a href="/zara" style="font-size:13.5px;font-weight:600;color:var(--body);text-decoration:none;padding:9px 12px;border-radius:9px" style-hover="background:var(--surface)">Zara</a>
+            <a href="/expo" style="font-size:13.5px;font-weight:600;color:var(--body);text-decoration:none;padding:9px 12px;border-radius:9px" style-hover="background:var(--surface)">Expo</a>
           </div>
         </details>
-        <a href="./Pricing.dc.html" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">Pricing</a>
-        <a href="./FAQ.dc.html" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">FAQ</a>
+        <a href="/pricing" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">Pricing</a>
+        <a href="/faq" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">FAQ</a>
       </div>
       <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap" style-hover="filter:brightness(1.06)">Start free trial</a>
     </div>
@@ -76,9 +76,7 @@
 
   <!-- HERO -->
   <header style="position:relative;background:var(--body);overflow:hidden;border-bottom:1px solid var(--border)">
-    <div style="position:absolute;inset:0;z-index:0">
-      <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="casava-hero-bg" shape="rect" placeholder="Full-bleed food / kitchen photography" fit="cover" style="width:100%;height:100%" hint-size="100%,100%"></x-import>
-    </div>
+    <div style="position:absolute;inset:0;z-index:0;background:#1e1b17"></div>
     <div style="position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(30,27,23,.35),rgba(30,27,23,.86))"></div>
     <div style="position:relative;z-index:1;max-width:900px;margin:0 auto;padding:clamp(70px,10vw,120px) clamp(20px,4vw,48px);text-align:center">
       <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#f0b489;margin-bottom:16px">Casava</div>
@@ -92,7 +90,7 @@
     <div style="max-width:1180px;margin:0 auto">
       <div style="max-width:640px;margin:0 auto 56px;text-align:center">
         <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px">Watch Casava do the work</div>
-        <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:900;line-height:1.1;letter-spacing:-.5px;margin:0 0 12px">Every step, handled — here's how.</h2>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:900;line-height:1.1;letter-spacing:-.5px;margin:0 0 12px">Every step, handled: here's how.</h2>
         <p style="font-size:16.5px;color:var(--muted);line-height:1.6;margin:0">From inquiry to booked event, here's exactly what happens behind the scenes.</p>
       </div>
 
@@ -101,7 +99,7 @@
         <div style="order:2">
           <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green-dark);margin-bottom:12px">Answers customers instantly</div>
           <h3 style="font-family:'Manrope',sans-serif;font-size:clamp(22px,3vw,30px);font-weight:900;line-height:1.15;letter-spacing:-.4px;margin:0 0 14px">Every customer question, answered on the spot.</h3>
-          <p style="font-size:15.5px;color:var(--muted);line-height:1.6;margin:0 0 18px">Menus, dietary options, pricing, availability — Casava replies to inquiries 24/7 in your voice, so nobody waits for an answer and no lead slips away while you're busy cooking.</p>
+          <p style="font-size:15.5px;color:var(--muted);line-height:1.6;margin:0 0 18px">Menus, dietary options, pricing, availability: Casava replies to inquiries 24/7 in your voice, so nobody waits for an answer and no lead slips away while you're busy cooking.</p>
           <div style="display:flex;gap:6px;flex-wrap:wrap"><span style="font-size:13px;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:7px 13px;border-radius:999px">Trained on your menu</span><span style="font-size:13px;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:7px 13px;border-radius:999px">Replies in seconds</span></div>
         </div>
         <div style="order:1;background:#fff;border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:0 24px 50px rgba(30,27,23,.08)">
@@ -129,7 +127,7 @@
         <div style="order:2">
           <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green-dark);margin-bottom:12px">Quote in 30 seconds</div>
           <h3 style="font-family:'Manrope',sans-serif;font-size:clamp(22px,3vw,30px);font-weight:900;line-height:1.15;letter-spacing:-.4px;margin:0 0 14px">Line-itemed quotes build themselves.</h3>
-          <p style="font-size:15.5px;color:var(--muted);line-height:1.6;margin:0 0 18px">The moment a client submits their request, Casava prices every item, totals it, and emails a polished quote to you both — ready for your one-tap approval.</p>
+          <p style="font-size:15.5px;color:var(--muted);line-height:1.6;margin:0 0 18px">The moment a client submits their request, Casava prices every item, totals it, and emails a polished quote to you both, ready for your one-tap approval.</p>
           <div style="display:flex;gap:6px;flex-wrap:wrap"><span style="font-size:13px;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:7px 13px;border-radius:999px">Your pricing rules</span><span style="font-size:13px;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:7px 13px;border-radius:999px">Branded PDF</span></div>
         </div>
         <div style="order:1;background:#fff;border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:0 24px 50px rgba(30,27,23,.08)">
@@ -219,12 +217,12 @@
         </div>
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px">
           <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">The admin grind</h3>
-          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 16px">Quotes, invoices, calendar updates, payment chasing — dozens of minutes of paperwork on every booking.</p>
+          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 16px">Quotes, invoices, calendar updates, payment chasing: dozens of minutes of paperwork on every booking.</p>
           <div style="font-size:14px;font-weight:600;color:var(--green-dark);display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--surface)"><span>✓</span>All of it automated after one approval</div>
         </div>
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px">
           <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">Scheduling chaos</h3>
-          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 16px">Double bookings, wrong addresses, forgotten confirmations — mistakes that cost clients and credibility.</p>
+          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 16px">Double bookings, wrong addresses, forgotten confirmations: mistakes that cost clients and credibility.</p>
           <div style="font-size:14px;font-weight:600;color:var(--green-dark);display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--surface)"><span>✓</span>Every detail locked the moment payment clears</div>
         </div>
       </div>
@@ -277,18 +275,18 @@
   <!-- FOOTER -->
   <footer style="background:var(--body);padding:32px clamp(20px,4vw,48px);display:flex;flex-direction:column;gap:18px">
     <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
-      <a href="./Casava Landing.dc.html" style="font-family:'Manrope',sans-serif;font-size:19px;font-weight:900;color:#fff;text-decoration:none">casava<span style="color:#fff">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
+      <a href="/" style="font-family:'Manrope',sans-serif;font-size:19px;font-weight:900;color:#fff;text-decoration:none">casava<span style="color:#fff">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a89e8f">Products</div>
-        <a href="./Casava Product.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Casava</a>
-        <a href="./Zara.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Zara</a>
-        <a href="./Expo.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Expo</a>
+        <a href="/casava" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Casava</a>
+        <a href="/zara" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Zara</a>
+        <a href="/expo" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Expo</a>
       </div>
       <div style="display:flex;gap:24px">
-        <a href="./FAQ.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
-        <a href="./Privacy.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
-        <a href="./Terms.dc.html" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
-        <a href="/cdn-cgi/l/email-protection#92fbfcf4fdd2f1f3e1f3e4f3bcf3fb" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="4b22252d240b282a382a3d2a652a22">[email&#160;protected]</span></a>
+        <a href="/faq" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
+        <a href="/privacy" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
+        <a href="/terms" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
+        <a href="/cdn-cgi/l/email-protection#650c0b030a250604160413044b040c" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="a6cfc8c0c9e6c5c7d5c7d0c788c7cf">[email&#160;protected]</span></a>
       </div>
     </div>
     <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
