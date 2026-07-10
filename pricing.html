@@ -25,12 +25,45 @@
   body{background:#f8faf8;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   summary{list-style:none}
   summary::-webkit-details-marker{display:none}
+  [data-mobile-menu]{display:none}
   @media (max-width:880px){
     [data-nav-links]{display:none !important;}
+    [data-mobile-menu]{display:block !important;}
     [data-pricing]{grid-template-columns:1fr !important;}
     [data-compare] table{font-size:12px !important;}
   }
 </style>
+<script>
+document.addEventListener('click', function (evt) {
+  var btn = evt.target.closest('[data-checkout-tier]');
+  if (!btn) { return; }
+  var tier = btn.getAttribute('data-checkout-tier');
+  var wrap = btn.parentElement;
+  var err = wrap.querySelector('[data-checkout-error]');
+  if (err) { err.style.display = 'none'; }
+  var label = btn.textContent;
+  btn.textContent = 'Processing...';
+  btn.disabled = true;
+  var payload = {};
+  payload.tier = tier;
+  fetch('https://casava-ai.app.n8n.cloud/webhook/create-checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then(function (res) { if (!res.ok) { throw new Error('bad response'); } return res.json(); })
+    .then(function (result) {
+      var url = result['checkoutUrl'];
+      if (url) { window.location.href = url; }
+      else { throw new Error('missing url'); }
+    })
+    .catch(function () {
+      btn.textContent = label;
+      btn.disabled = false;
+      if (err) { err.textContent = 'Something went wrong. Please try again or contact support@casava.ai'; err.style.display = 'block'; }
+    });
+});
+</script>
 </helmet>
 
 <template id="__bundler_thumbnail" data-bg-color="#f8faf8">
@@ -60,6 +93,17 @@
         <a href="/faq" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">FAQ</a>
       </div>
       <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap" style-hover="filter:brightness(1.06)">Start free trial</a>
+      <details data-mobile-menu style="display:none;position:relative">
+        <summary style="cursor:pointer;padding:6px;display:flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--body)" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg></summary>
+        <div style="position:absolute;top:calc(100% + 12px);right:0;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 40px rgba(30,27,23,.14);padding:8px;display:flex;flex-direction:column;gap:2px;min-width:190px;z-index:250">
+          <a href="/#how" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">How it works</a>
+          <a href="/casava" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Casava</a>
+          <a href="/zara" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Zara</a>
+          <a href="/expo" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Expo</a>
+          <a href="/pricing" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Pricing</a>
+          <a href="/faq" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">FAQ</a>
+        </div>
+      </details>
     </div>
   </nav>
 
@@ -77,7 +121,7 @@
       <div style="background:#fff;border:1px solid var(--border);border-radius:20px;padding:30px;display:flex;flex-direction:column">
         <div style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px;text-align:center">Simmer</div>
         <p style="text-align:center;font-size:15px;color:var(--muted);margin:0 0 10px">Full booking automation, from first inquiry to a locked-in calendar slot.</p>
-        <div style="text-align:center;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)"><span style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:var(--body)">$97</span><div style="font-size:12px;color:var(--muted);margin-top:2px">per month</div></div>
+        <div style="text-align:center;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)"><span style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:var(--body)">$97</span><div style="font-size:12px;color:var(--muted);margin-top:2px">per month <span style="color:var(--muted);opacity:.6">USD</span></div></div>
         <div style="display:flex;flex-direction:column;gap:11px">
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>AI inquiry replies, 24/7</div>
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Auto-generated quotes</div>
@@ -86,13 +130,14 @@
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Approve from any messaging app</div>
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Zara — account configuration</div>
         </div>
-        <a href="https://casava.ai/onboard.html?tier=simmer" style="display:block;text-align:center;background:var(--body);color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;text-decoration:none;margin-top:20px" style-hover="background:var(--green-dark)">Subscribe now</a>
+        <button type="button" data-checkout-tier="simmer" style="display:block;width:100%;text-align:center;background:var(--body);color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;border:none;cursor:pointer;margin-top:20px" style-hover="background:var(--green-dark)">Subscribe now</button>
+        <div data-checkout-error style="display:none;color:#c0392b;font-size:12px;margin-top:8px;text-align:center"></div>
       </div>
       <div style="background:var(--body);border:1px solid var(--body);border-radius:20px;padding:30px;position:relative;display:flex;flex-direction:column">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:999px;white-space:nowrap">Most popular</div>
         <div style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px;color:#fff;text-align:center">Sauté</div>
         <p style="text-align:center;font-size:15px;color:rgba(255,248,241,.65);margin:0 0 10px">Everything in Simmer, plus deeper configuration and a live view of your business.</p>
-        <div style="text-align:center;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.14)"><span style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:#fff">$199</span><div style="font-size:12px;color:rgba(255,248,241,.65);margin-top:2px">per month</div></div>
+        <div style="text-align:center;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.14)"><span style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:#fff">$199</span><div style="font-size:12px;color:rgba(255,248,241,.65);margin-top:2px">per month <span style="color:rgba(255,248,241,.5)">USD</span></div></div>
         <div style="display:flex;flex-direction:column;gap:11px">
           <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Everything in Simmer</div>
           <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Zara — full configuration, incl. menu &amp; prices</div>
@@ -101,12 +146,13 @@
           <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Team access</div>
           <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Expo business dashboard</div>
         </div>
-        <a href="https://casava.ai/onboard.html?tier=saute" style="display:block;text-align:center;background:var(--orange);color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;text-decoration:none;margin-top:20px" style-hover="opacity:.9">Subscribe now</a>
+        <button type="button" data-checkout-tier="saute" style="display:block;width:100%;text-align:center;background:var(--orange);color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;border:none;cursor:pointer;margin-top:20px" style-hover="opacity:.9">Subscribe now</button>
+        <div data-checkout-error style="display:none;color:#ffb4a3;font-size:12px;margin-top:8px;text-align:center"></div>
       </div>
       <div style="background:#fff;border:1px solid var(--border);border-radius:20px;padding:30px;display:flex;flex-direction:column">
         <div style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px;text-align:center">Full Flame</div>
         <p style="text-align:center;font-size:15px;color:var(--muted);margin:0 0 10px">The complete suite, with white-glove onboarding and support.</p>
-        <div style="text-align:center;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)"><span style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:var(--body)">$349</span><div style="font-size:12px;color:var(--muted);margin-top:2px">per month</div></div>
+        <div style="text-align:center;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)"><span style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:var(--body)">$349</span><div style="font-size:12px;color:var(--muted);margin-top:2px">per month <span style="color:var(--muted);opacity:.6">USD</span></div></div>
         <div style="display:flex;flex-direction:column;gap:11px">
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Everything in Sauté</div>
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Expo Pro (advanced analytics)</div>
@@ -114,7 +160,8 @@
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Custom workflow configuration support</div>
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Priority support — same-day response via your preferred channel</div>
         </div>
-        <a href="https://casava.ai/onboard.html?tier=full-flame" style="display:block;text-align:center;background:var(--body);color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;text-decoration:none;margin-top:20px" style-hover="background:var(--green-dark)">Subscribe now</a>
+        <button type="button" data-checkout-tier="full_flame" style="display:block;width:100%;text-align:center;background:var(--body);color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;border:none;cursor:pointer;margin-top:20px" style-hover="background:var(--green-dark)">Subscribe now</button>
+        <div data-checkout-error style="display:none;color:#c0392b;font-size:12px;margin-top:8px;text-align:center"></div>
       </div>
     </div>
   </section>
@@ -200,7 +247,7 @@
         <a href="/faq" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
         <a href="/privacy" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
         <a href="/terms" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
-        <a href="/cdn-cgi/l/email-protection#51383f373e113230223027307f3038" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="fa93949c95ba999b899b8c9bd49b93">[email&#160;protected]</span></a>
+        <a href="/cdn-cgi/l/email-protection#1a73747c755a797b697b6c7b347b73" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="ea83848c85aa898b998b9c8bc48b83">[email&#160;protected]</span></a>
       </div>
     </div>
     <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
