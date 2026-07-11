@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Get Started — Casava</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@900&display=swap" rel="stylesheet">
 <style>
   :root {
     --green-dark: #005236;
@@ -85,6 +85,17 @@
   }
 
   .header h1 em { font-style: italic; color: var(--green-dark); }
+
+  .tier-pill {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-top: 0.75rem;
+  }
 
   .header p {
     font-size: 17px;
@@ -453,17 +464,16 @@
 <body>
 
 <nav class="nav">
-  <a href="https://casava.ai" class="nav-logo">
-    <img src="data:image/png;base64,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" alt="Casava" />
-  </a>
+  <a href="https://casava.ai" class="nav-logo" style="font-family:'Manrope',sans-serif;font-size:23px;font-weight:900;color:var(--green-dark);letter-spacing:-.5px;text-decoration:none">casava<span style="color:var(--body)">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
   <a href="https://casava.ai" class="nav-link">← Back to site</a>
 </nav>
 
 <div class="page">
   <div class="header">
-    <div class="badge">Account Setup</div>
-    <h1>Welcome to Casava.<br><em>Let's get you started.</em></h1>
-    <p>Takes under 10 minutes. Your account is created automatically and Zara will reach out on your preferred messaging channel to get you started.</p>
+    <div class="badge" id="headerBadge">Account Setup</div>
+    <h1 id="headerH1">Welcome to Casava.<br><em>Let's get you started.</em></h1>
+    <p id="headerSubtext">Takes under 10 minutes. Your account is created automatically and Zara will reach out on your preferred messaging channel to get you started.</p>
+    <div class="tier-pill" id="tierPill" style="display:none"></div>
   </div>
 
   <div class="card">
@@ -593,6 +603,36 @@
       </div>
 
       <div class="section-gap"></div>
+      <hr class="divider" id="fullFlameDivider" style="display:none">
+      <div class="section-title-wrap" id="fullFlameSectionTitle" style="display:none"><span class="section-title">White-label setup</span></div>
+
+      <div id="fullFlameFields" style="display:none">
+        <div class="field">
+          <label>Custom domain</label>
+          <p class="field-hint">The domain you want your customer-facing pages on, e.g. quotes.yourbusiness.com. Leave blank if unsure — we'll discuss during setup.</p>
+          <input type="text" name="customDomain" placeholder="quotes.yourbusiness.com">
+        </div>
+        <div class="section-gap"></div>
+        <div class="field">
+          <label>Brand primary color</label>
+          <p class="field-hint">Your main brand color as a hex code</p>
+          <input type="text" name="brandColor" placeholder="#005236">
+        </div>
+        <div class="section-gap"></div>
+        <div class="field">
+          <label>Logo URL</label>
+          <p class="field-hint">A direct link to your logo file (PNG or SVG preferred). You can also send it by email after setup.</p>
+          <input type="text" name="logoURL" placeholder="https://yourbusiness.com/logo.png">
+        </div>
+        <div class="section-gap"></div>
+        <div class="field">
+          <label>Custom workflow requirements</label>
+          <p class="field-hint">Any specific automation needs, integrations, or workflow customizations you'd like us to know about.</p>
+          <textarea name="customWorkflowNotes" rows="4" placeholder="e.g. We use a specific POS system, need Slack notifications, want custom invoice terms..."></textarea>
+        </div>
+      </div>
+
+      <div class="section-gap"></div>
       <hr class="divider">
       <div class="section-title-wrap"><span class="section-title">Payment processing</span></div>
 
@@ -647,7 +687,7 @@
         Start my free trial →
       </button>
 
-      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc5c8c1c1c2edceccdeccdbcc83ccc4">[email&#160;protected]</a></div>
+      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0c8c5cccccfe0c3c1d3c1d6c18ec1c9">[email&#160;protected]</a></div>
 
       <p class="privacy-note">No credit card required &nbsp;·&nbsp; 30-day free trial &nbsp;·&nbsp; We'll reach out personally before activating your account.</p>
 
@@ -670,6 +710,13 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const WEBHOOK_URL = "https://casava-ai.app.n8n.cloud/webhook/onboard";
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const entryPath = urlParams.get("path") === "paid" ? "paid" : "trial";
+  const entryTier = urlParams.get("tier") || "";
+  const entrySessionID = urlParams.get("session_id") || "";
+  const tierLabels = { simmer: "Simmer", saute: "Sauté", full_flame: "Full Flame" };
+  const tierLabel = tierLabels[entryTier] || "";
   const SQUARE_APP_ID = "sq0idp-4yF0xYAmECN1jC3kLh7-gw";
   const STRIPE_CLIENT_ID = "ca_UjSklyvYkQue4eMLICzDr6OyUZerZpiQ";
 
@@ -809,6 +856,11 @@
       if (response.ok) {
         form.style.display = "none";
         successCard.classList.add("visible");
+        if (entryPath === "paid") {
+          document.getElementById("successHeadline").textContent = "Setup complete!";
+          document.getElementById("successCopy").textContent =
+            "Your Casava account is being activated. Check your email to confirm your address, then Zara will reach out on your chosen channel to finish setup.";
+        }
         document.getElementById("successDetail").innerHTML =
           "<strong>Name:</strong> " + data.ownerName + "<br>" +
           "<strong>Business:</strong> " + data.companyName + "<br>" +
@@ -835,6 +887,35 @@
       errorMsg.classList.add("visible");
     }
   });
+
+  // Apply paid-path copy/UI changes
+  (function applyEntryPath() {
+    if (entryPath !== "paid") return;
+
+    document.getElementById("headerBadge").textContent = "Account Setup";
+    document.getElementById("headerH1").innerHTML = "You're subscribed. <em>Let's get you set up.</em>";
+    document.getElementById("headerSubtext").textContent =
+      "Your " + (tierLabel || "Casava") + " plan is active. Complete your setup below and Zara will reach out to finish onboarding.";
+
+    if (tierLabel) {
+      const pill = document.getElementById("tierPill");
+      pill.textContent = "✓ " + tierLabel + " Plan";
+      pill.style.display = "inline-block";
+    }
+
+    submitBtn.textContent = "Complete my setup →";
+
+    const privacyNote = document.querySelector(".privacy-note");
+    if (privacyNote) {
+      privacyNote.textContent = "Your subscription is active · " + (tierLabel || "Casava") + " plan · You can manage billing at casava.ai/billing";
+    }
+
+    if (entryTier === "full_flame") {
+      document.getElementById("fullFlameDivider").style.display = "block";
+      document.getElementById("fullFlameSectionTitle").style.display = "flex";
+      document.getElementById("fullFlameFields").style.display = "block";
+    }
+  })();
 
   // Detect return from Square/Stripe OAuth and show a connected confirmation
   (function checkProviderConnected() {
