@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casava: Turn catering requests into confirmed bookings, automatically</title>
+<meta name="description" content="From the first inquiry to a paid, scheduled event: replies, quotes, invoices, payments and calendar booking, all handled. You just approve.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Casava">
+<meta property="og:title" content="Casava: Turn catering requests into confirmed bookings, automatically">
+<meta property="og:description" content="From the first inquiry to a paid, scheduled event: replies, quotes, invoices, payments and calendar booking, all handled. You just approve.">
+<meta property="og:url" content="https://casava.ai">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Casava: Turn catering requests into confirmed bookings, automatically">
+<meta name="twitter:description" content="From the first inquiry to a paid, scheduled event: replies, quotes, invoices, payments and calendar booking, all handled. You just approve.">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#f8faf8;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  image-slot{display:block;width:100%;height:100%}
+  ::selection{background:rgba(245,100,27,.22)}
+  summary{list-style:none}
+  summary::-webkit-details-marker{display:none}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+  @keyframes rise{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @media (max-width:880px){
+    [data-hero]{grid-template-columns:1fr !important;}
+    [data-hero] > div:last-child{max-width:440px;margin:0 auto;width:100%;}
+    [data-steps]{grid-template-columns:1fr 1fr !important;}
+    [data-steps] > div[data-hero-step]{grid-column:span 2 !important;}
+    [data-pricing]{grid-template-columns:1fr !important;}
+    [data-pain]{grid-template-columns:1fr !important;}
+  }
+  [data-mobile-menu]{display:none}
+  @media (max-width:600px){
+    [data-nav-links]{display:none !important;}
+    [data-mobile-menu]{display:block !important;}
+    [data-steps]{grid-template-columns:1fr !important;}
+    [data-steps] > div[data-hero-step]{grid-column:span 1 !important;}
+  }
+</style>
+<script>
+document.addEventListener('click', function (evt) {
+  var btn = evt.target.closest('[data-checkout-tier]');
+  if (!btn) { return; }
+  var tier = btn.getAttribute('data-checkout-tier');
+  var wrap = btn.parentElement;
+  var err = wrap.querySelector('[data-checkout-error]');
+  if (err) { err.style.display = 'none'; }
+  var label = btn.textContent;
+  btn.textContent = 'Processing...';
+  btn.disabled = true;
+  var payload = {};
+  payload.tier = tier;
+  fetch('https://casava-ai.app.n8n.cloud/webhook/create-checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then(function (res) { if (!res.ok) { throw new Error('bad response'); } return res.json(); })
+    .then(function (result) {
+      var url = result['checkoutUrl'];
+      if (url) { window.location.href = url; }
+      else { throw new Error('missing url'); }
+    })
+    .catch(function () {
+      btn.textContent = label;
+      btn.disabled = false;
+      if (err) { err.textContent = 'Something went wrong. Please try again or contact support@casava.ai'; err.style.display = 'block'; }
+    });
+});
+</script>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#f8faf8">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#f8faf8"/>
+    <text x="600" y="400" font-family="Manrope, sans-serif" font-size="96" font-weight="900" fill="#005231" text-anchor="middle" dominant-baseline="central">casava<tspan fill="#F5641B">.</tspan>aı</text>
+  </svg>
+</template>
+
+<main data-screen-label="Homepage" style="--green-dark:#005231;--green-mid:#006d42;--olive:#6f5c2b;--orange:{{ accent }};--orange-light:#fbe3d2;--orange-mid:#f0b489;--bg:#f8faf8;--surface:#f1f5f0;--body:#1e1b17;--muted:#4c463a;--border:#e2ece6;--motion:{{ motion }};font-family:'Inter',system-ui,sans-serif;color:var(--body);background:var(--bg);overflow-x:hidden">
+
+  <!-- ============ NAV ============ -->
+  <nav style="background:#fff;border-bottom:1px solid var(--border);padding:0 clamp(20px,4vw,48px);height:68px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200;backdrop-filter:blur(8px)">
+    <a href="#top" style="font-family:'Manrope',sans-serif;font-size:23px;font-weight:900;color:var(--green-dark);letter-spacing:-.5px;text-decoration:none">casava<span style="color:var(--body)">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
+    <div style="display:flex;align-items:center;gap:clamp(14px,3vw,30px)">
+      <div style="display:flex;align-items:center;gap:clamp(14px,3vw,30px)" data-nav-links>
+        <a href="#how" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">How it works</a>
+        <details style="position:relative">
+          <summary style="font-size:14px;font-weight:500;color:var(--body);display:flex;align-items:center;gap:5px;cursor:pointer">Products<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"></path></svg></summary>
+          <div style="position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 40px rgba(30,27,23,.14);padding:8px;display:flex;flex-direction:column;gap:2px;min-width:170px;z-index:50">
+            <a href="/casava" style="font-size:13.5px;font-weight:600;color:var(--body);text-decoration:none;padding:9px 12px;border-radius:9px" style-hover="background:var(--surface)">Casava</a>
+            <a href="/zara" style="font-size:13.5px;font-weight:600;color:var(--body);text-decoration:none;padding:9px 12px;border-radius:9px" style-hover="background:var(--surface)">Zara</a>
+            <a href="/expo" style="font-size:13.5px;font-weight:600;color:var(--body);text-decoration:none;padding:9px 12px;border-radius:9px" style-hover="background:var(--surface)">Expo</a>
+          </div>
+        </details>
+        <a href="/pricing" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">Pricing</a>
+        <a href="/faq" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">FAQ</a>
+      </div>
+      <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap" style-hover="filter:brightness(1.06)">Start free trial</a>
+      <details data-mobile-menu style="display:none;position:relative">
+        <summary style="cursor:pointer;padding:6px;display:flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--body)" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg></summary>
+        <div style="position:absolute;top:calc(100% + 12px);right:0;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 40px rgba(30,27,23,.14);padding:8px;display:flex;flex-direction:column;gap:2px;min-width:190px;z-index:250">
+          <a href="#how" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">How it works</a>
+          <a href="/casava" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Casava</a>
+          <a href="/zara" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Zara</a>
+          <a href="/expo" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Expo</a>
+          <a href="/pricing" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Pricing</a>
+          <a href="/faq" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">FAQ</a>
+        </div>
+      </details>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header id="top" style="position:relative;border-bottom:1px solid var(--border);overflow:hidden">
+    <div style="position:absolute;inset:0;z-index:0;background:#f1f5f0"></div>
+    <div style="position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,86px) clamp(20px,4vw,48px) clamp(56px,6vw,80px);display:grid;grid-template-columns:1fr 440px;gap:clamp(32px,5vw,64px);align-items:center" data-hero>
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7a3a12;background:var(--orange-light);border:1px solid var(--orange-mid);padding:6px 14px;border-radius:999px;margin-bottom:24px;animation:rise .6s ease both">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--orange);animation:blink 1.8s infinite;animation-play-state:var(--motion)"></span>Catering automation for food businesses
+        </div>
+        <p style="font-size:14px;font-weight:600;color:var(--muted);margin:0 0 14px;animation:rise .6s ease .08s both">Built for restaurants, caterers, and any food business offering catering services.</p>
+        <h1 style="font-family:'Manrope',sans-serif;font-size:clamp(38px,5.4vw,60px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin:0 0 20px;animation:rise .6s ease .05s both">Turn catering requests into confirmed bookings. <em style="color:var(--green-dark);font-style:italic">Automatically.</em></h1>
+        <p style="font-size:clamp(16px,1.5vw,19px);color:var(--muted);line-height:1.65;margin:0 0 30px;max-width:480px;animation:rise .6s ease .12s both">From the first inquiry to a paid, scheduled event: replies, quotes, invoices, payments and calendar booking, all handled for you. You just approve.</p>
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:rise .6s ease .2s both">
+          <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:16px 34px;border-radius:999px;font-size:16px;font-weight:700;text-decoration:none" style-hover="filter:brightness(1.08)">Start your free trial</a>
+          <span style="font-size:13px;color:var(--muted)">30 days free. <strong style="color:var(--green-dark)">No credit card.</strong></span>
+        </div>
+      </div>
+      <div style="position:relative;animation:rise .7s ease .18s both">
+        <div style="position:relative;z-index:1;background:#fff;border:1px solid var(--border);border-radius:20px;padding:20px;box-shadow:0 30px 70px rgba(30,27,23,.14)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+            <span style="font-size:11px;color:var(--muted);font-weight:600">New request</span>
+            <span style="font-size:11px;font-weight:700;color:var(--green-dark);background:#e5f2ea;padding:4px 10px;border-radius:99px">Auto-handled</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="background:var(--surface);border-radius:12px;padding:12px 14px"><div style="font-size:12.5px;color:var(--muted);margin-bottom:3px">Garden Wedding · 95 guests</div><div style="font-size:14px;font-weight:700;color:var(--body)">Quote ready — $3,400</div></div>
+            <div style="display:flex;gap:9px"><span style="flex:1;text-align:center;background:var(--orange);color:#fff;font-size:13px;font-weight:700;padding:11px;border-radius:9px">Approve</span><span style="text-align:center;background:var(--surface);color:var(--muted);font-size:13px;font-weight:700;padding:11px 16px;border-radius:9px">Review</span></div>
+          </div>
+        </div>
+        <div style="position:absolute;z-index:2;bottom:-16px;left:-18px;background:#fff;border:1px solid var(--border);box-shadow:0 14px 34px rgba(30,27,23,.14);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:9px;animation:floaty 7s ease-in-out infinite;animation-play-state:var(--motion)">
+          <span style="width:30px;height:30px;border-radius:8px;background:#e5f2ea;display:flex;align-items:center;justify-content:center;color:var(--green-dark);font-weight:800;font-size:14px">✓</span>
+          <div><div style="font-size:13px;font-weight:800;color:var(--body);line-height:1">Booked &amp; confirmed</div><div style="font-size:11px;color:var(--muted)">while you were cooking</div></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ PROBLEM ============ -->
+  <section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:clamp(52px,7vw,76px) clamp(20px,4vw,48px)">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px">Why Casava?</div>
+      <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.1;letter-spacing:-.5px;margin:0 0 40px">Stop the catering chaos.</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" data-pain>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px">
+          <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">Leads gone cold</h3>
+          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 12px">A client inquires at 11pm and books whoever replies first. Revenue walks out while you sleep.</p>
+          <p style="font-size:11.5px;color:var(--muted);opacity:.75;line-height:1.5;margin:0 0 14px">Leads contacted within 5 minutes are 21x more likely to convert than those contacted after 30 minutes.<sup>1</sup></p>
+          <div style="font-size:14px;font-weight:600;color:var(--green-dark);display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--surface)"><span>✓</span>Casava replies instantly, 24/7</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px">
+          <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">The admin grind</h3>
+          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 12px">Quotes, invoices, calendar updates, payment chasing — dozens of minutes of paperwork on every booking.</p>
+          <p style="font-size:11.5px;color:var(--muted);opacity:.75;line-height:1.5;margin:0 0 14px">60% of business owners could save 30% of their time by automating routine tasks.<sup>2</sup></p>
+          <div style="font-size:14px;font-weight:600;color:var(--green-dark);display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--surface)"><span>✓</span>All of it automated after one approval</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px">
+          <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">Details fall through the cracks</h3>
+          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 12px">Guest count, allergies, delivery address, timing — passed along by phone call, sticky note, and spreadsheet before it reaches the kitchen. Something always gets dropped.</p>
+          <p style="font-size:11.5px;color:var(--muted);opacity:.75;line-height:1.5;margin:0 0 14px">Businesses hear from only 4% of dissatisfied customers.<sup>3</sup></p>
+          <div style="font-size:14px;font-weight:600;color:var(--green-dark);display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--surface)"><span>✓</span>Casava captures every detail once and carries it through automatically</div>
+        </div>
+      </div>
+      <p style="font-size:10px;color:var(--muted);opacity:.65;line-height:1.6;margin:20px 0 0;text-align:center">1 MIT / InsideSales.com research, published via Harvard Business Review. 2 McKinsey. 3 Technical Assistance Research Programs (TARP), originally commissioned by the White House Office of Consumer Affairs.</p>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section id="how" style="padding:clamp(56px,7vw,84px) clamp(20px,4vw,48px)">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:44px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px">How it works</div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.08;letter-spacing:-.5px;margin:0 0 12px">Six steps. Only one is yours.</h2>
+        <p style="font-size:17px;color:var(--muted);line-height:1.6;max-width:560px;margin:0 auto">The whole booking runs itself, start to finish. Your job is a single tap.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" data-steps>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px rgba(30,27,23,.08)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><span style="font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:var(--orange)">Step 01</span><span style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-dark);background:#e5f2ea;padding:4px 9px;border-radius:99px">Automatic</span></div>
+          <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">They tell you what they need</h3>
+          <p style="font-size:14.5px;color:var(--muted);line-height:1.6;margin:0">A simple request form, filled out on their own time — any hour, any day.</p>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px rgba(30,27,23,.08)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><span style="font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:var(--orange)">Step 02</span><span style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-dark);background:#e5f2ea;padding:4px 9px;border-radius:99px">Automatic</span></div>
+          <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">A quote, built in seconds</h3>
+          <p style="font-size:14.5px;color:var(--muted);line-height:1.6;margin:0">Priced line by line using your rules, then sent straight to the client.</p>
+        </div>
+        <div data-hero-step style="background:var(--green-dark);border-radius:16px;padding:26px;color:#fff;position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:20px 20px"></div>
+          <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><span style="font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:#bfe3cf">Step 03</span><span style="font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--green-dark);background:#fff;padding:4px 9px;border-radius:99px">Your one move</span></div>
+          <h3 style="position:relative;font-family:'Manrope',sans-serif;font-size:19px;font-weight:900;margin:0 0 8px">Tap approve</h3>
+          <p style="position:relative;font-size:14.5px;color:rgba(255,255,255,.86);line-height:1.6;margin:0">One tap, right from a notification on WhatsApp, Telegram, SMS or email. No new app to learn — just the one you already use.</p>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px rgba(30,27,23,.08)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><span style="font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:var(--orange)">Step 04</span><span style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-dark);background:#e5f2ea;padding:4px 9px;border-radius:99px">Automatic</span></div>
+          <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">Invoice, on its way</h3>
+          <p style="font-size:14.5px;color:var(--muted);line-height:1.6;margin:0">Created and sent the moment you approve, with your terms already applied.</p>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px rgba(30,27,23,.08)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><span style="font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:var(--orange)">Step 05</span><span style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-dark);background:#e5f2ea;padding:4px 9px;border-radius:99px">Automatic</span></div>
+          <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">Payment, tracked</h3>
+          <p style="font-size:14.5px;color:var(--muted);line-height:1.6;margin:0">Deposits, balances and reminders handled. No chasing required.</p>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px rgba(30,27,23,.08)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><span style="font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:var(--orange)">Step 06</span><span style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-dark);background:#e5f2ea;padding:4px 9px;border-radius:99px">Automatic</span></div>
+          <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">On the calendar</h3>
+          <p style="font-size:14.5px;color:var(--muted);line-height:1.6;margin:0">Booked the second payment clears. Confirmation sent, nothing double-booked.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING ============ -->
+  <section id="pricing" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:clamp(56px,7vw,84px) clamp(20px,4vw,48px)">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:8px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px">Plans &amp; pricing</div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.08;letter-spacing:-.5px;margin:0 0 12px">Less admin. More bookings.</h2>
+        <p style="font-size:17px;color:var(--muted);line-height:1.6;max-width:520px;margin:0 auto">Three tiers to match where you are. Start free for 30 days.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;align-items:start" data-pricing>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:20px;padding:30px;display:flex;flex-direction:column">
+          <div style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px;text-align:center">Simmer</div>
+          <p style="text-align:center;font-size:15px;color:var(--muted);margin:0 0 10px">For food businesses getting started with catering automation</p>
+          <div style="text-align:center;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)"><span style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:var(--body)">$97</span><div style="font-size:12px;color:var(--muted);margin-top:2px">per month <span style="color:var(--muted);opacity:.6">USD</span></div></div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>AI inquiry replies, 24/7</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Auto-generated quotes</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Seamless invoicing</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Automatic calendar scheduling</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Approve from any messaging app</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Zara: account configuration</div>
+          </div>
+          <button type="button" data-checkout-tier="simmer" style="display:block;width:100%;text-align:center;background:#005231;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;border:none;cursor:pointer;margin-top:20px" style-hover="filter:brightness(1.08)">Subscribe now</button>
+          <div data-checkout-error style="display:none;color:#c0392b;font-size:12px;margin-top:8px;text-align:center"></div>
+        </div>
+        <div style="background:var(--body);border:1px solid var(--body);border-radius:20px;padding:30px;position:relative;display:flex;flex-direction:column">
+          <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:999px;white-space:nowrap">Most popular</div>
+          <div style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px;color:#fff;text-align:center">Sauté</div>
+          <p style="text-align:center;font-size:15px;color:rgba(255,248,241,.65);margin:0 0 10px">For growing operations that want deeper control and insights</p>
+          <div style="text-align:center;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.14)"><span style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:#fff">$199</span><div style="font-size:12px;color:rgba(255,248,241,.65);margin-top:2px">per month <span style="color:rgba(255,248,241,.5)">USD</span></div></div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Everything in Simmer</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Zara: full configuration, including menu &amp; prices</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Custom quote templates</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Multi-channel approvals (WhatsApp, Telegram, SMS, Email)</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Team access</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Expo business dashboard</div>
+          </div>
+          <button type="button" data-checkout-tier="saute" style="display:block;width:100%;text-align:center;background:#F5641B;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;border:none;cursor:pointer;margin-top:20px" style-hover="filter:brightness(1.08)">Subscribe now</button>
+          <div data-checkout-error style="display:none;color:#ffb4a3;font-size:12px;margin-top:8px;text-align:center"></div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:20px;padding:30px;display:flex;flex-direction:column">
+          <div style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px;text-align:center">Full Flame</div>
+          <p style="text-align:center;font-size:15px;color:var(--muted);margin:0 0 10px">For high-volume operations that need full service support</p>
+          <div style="text-align:center;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)"><span style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:var(--body)">$349</span><div style="font-size:12px;color:var(--muted);margin-top:2px">per month <span style="color:var(--muted);opacity:.6">USD</span></div></div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Everything in Sauté</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Expo Pro (advanced analytics)</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Full white-label — your domain, your brand, no Casava branding anywhere</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Custom workflow configuration support</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Priority support — same-day response via your preferred channel</div>
+          </div>
+          <button type="button" data-checkout-tier="full_flame" style="display:block;width:100%;text-align:center;background:#005231;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;border:none;cursor:pointer;margin-top:20px" style-hover="filter:brightness(1.08)">Subscribe now</button>
+          <div data-checkout-error style="display:none;color:#c0392b;font-size:12px;margin-top:8px;text-align:center"></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:32px">
+        <p style="font-size:14px;color:var(--muted);margin:0 0 16px">Want to try Casava for free? Start with a 30-day free trial. No setup fee. Cancel anytime.</p>
+        <a href="https://casava.ai/onboard.html?path=trial" style="display:inline-block;background:var(--green-dark);color:#fff;padding:14px 32px;border-radius:999px;font-size:15px;font-weight:700;text-decoration:none" style-hover="background:var(--green-mid)">Start 30-day free trial</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section style="padding:clamp(56px,7vw,84px) clamp(20px,4vw,48px)">
+    <div style="max-width:660px;margin:0 auto;text-align:center;background:var(--green-dark);border-radius:24px;padding:clamp(40px,6vw,56px) clamp(28px,5vw,48px);position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:22px 22px"></div>
+      <div style="position:relative;z-index:1">
+        <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(26px,3.4vw,34px);font-weight:900;color:#fff;line-height:1.18;letter-spacing:-.5px;margin:0 0 12px;text-wrap:balance">First impressions are delicious. Don't let poor processes sour them.</h2>
+        <p style="font-size:16px;color:#bfe3cf;margin:0 0 26px">Set up takes under 10 minutes.</p>
+        <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:28px">
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px">✓ 30-day free trial</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px">✓ No credit card</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px">✓ No setup fee</span>
+        </div>
+        <a href="https://casava.ai/onboard.html" style="display:inline-block;background:#fff;color:var(--green-dark);padding:15px 36px;border-radius:999px;font-size:16px;font-weight:700;text-decoration:none" style-hover="filter:brightness(.96)">Start your free trial →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:var(--body);padding:32px clamp(20px,4vw,48px);display:flex;flex-direction:column;gap:18px">
+    <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
+      <a href="#top" style="font-family:'Manrope',sans-serif;font-size:19px;font-weight:900;color:#fff;text-decoration:none">casava<span style="color:#fff">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a89e8f">Products</div>
+        <a href="/casava" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Casava</a>
+        <a href="/zara" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Zara</a>
+        <a href="/expo" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Expo</a>
+      </div>
+      <div style="display:flex;gap:24px">
+        <a href="/faq" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
+        <a href="/privacy" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
+        <a href="/terms" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
+        <a href="/cdn-cgi/l/email-protection#9ef7f0f8f1defdffedffe8ffb0fff7" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="4b22252d240b282a382a3d2a652a22">[email&#160;protected]</span></a>
+      </div>
+    </div>
+    <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
+      <p style="font-size:12.5px;color:#7a7264;margin:0">© 2026 Casava · Catering automation for food businesses</p>
+      <p style="font-size:12.5px;color:#7a7264;margin:0">Meal prep services coming soon</p>
+    </div>
+  </footer>
+
+</main>
+
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F5641B&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#F5641B&quot;,&quot;#E0451C&quot;,&quot;#005231&quot;]},&quot;reduceMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const reduce = this.props.reduceMotion ?? false;
+    return {
+      accent: this.props.accent ?? '#F5641B',
+      motion: reduce ? 'paused' : 'running',
+    };
+  }
+}
+
+</script>
+</body>
+</html>
