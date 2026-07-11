@@ -177,7 +177,7 @@
     color: var(--green-dark);
   }
 
-  input, select {
+  input, select, textarea {
     width: 100%;
     background: var(--input-bg);
     border: 2px solid var(--border-light);
@@ -192,9 +192,11 @@
     -webkit-appearance: none;
   }
 
-  input::placeholder { color: #8ab5a0; font-weight: 400; }
+  textarea { resize: vertical; line-height: 1.6; }
 
-  input:focus, select:focus {
+  input::placeholder, textarea::placeholder { color: #8ab5a0; font-weight: 400; }
+
+  input:focus, select:focus, textarea:focus {
     border-color: var(--green-dark);
     box-shadow: 0 0 0 3px rgba(0,82,54,0.15);
   }
@@ -231,7 +233,6 @@
 
   .slug-preview span { color: var(--white); }
 
-  /* Notification / payment toggles */
   .notif-options {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -272,7 +273,6 @@
     transition: filter 0.2s;
   }
 
-  /* When selected, invert dark icons to white */
   .notif-option input[type="radio"]:checked + label {
     border-color: var(--green-dark);
     background: var(--green-dark);
@@ -440,9 +440,7 @@
     text-align: center;
   }
 
-  .connect-btn {
-    margin-top: 0;
-  }
+  .connect-btn { margin-top: 0; }
 
   .connect-subtext {
     text-align: center;
@@ -602,6 +600,7 @@
         </select>
       </div>
 
+      <!-- Full Flame white-label section — shown only for paid + full_flame -->
       <div class="section-gap"></div>
       <hr class="divider" id="fullFlameDivider" style="display:none">
       <div class="section-title-wrap" id="fullFlameSectionTitle" style="display:none"><span class="section-title">White-label setup</span></div>
@@ -630,9 +629,9 @@
           <p class="field-hint">Any specific automation needs, integrations, or workflow customizations you'd like us to know about.</p>
           <textarea name="customWorkflowNotes" rows="4" placeholder="e.g. We use a specific POS system, need Slack notifications, want custom invoice terms..."></textarea>
         </div>
+        <div class="section-gap"></div>
       </div>
 
-      <div class="section-gap"></div>
       <hr class="divider">
       <div class="section-title-wrap"><span class="section-title">Payment processing</span></div>
 
@@ -671,12 +670,10 @@
         </div>
       </div>
 
-      <!-- Shown for Square / Stripe — OAuth happens after submit, no manual token needed -->
       <div class="info-box" id="oauthNote">
         🔒 <strong>Secure connection:</strong> After you submit this form, you'll be taken to Square's website to securely connect your account — the same way you'd use "Sign in with Google." Casava never sees or stores your password, and you can disconnect at any time from your own Square dashboard.
       </div>
 
-      <!-- Shown for QuickBooks / Other — manual ID still required -->
       <div class="field" id="manualProviderField" style="display:none;">
         <label>Account / Location ID <span class="req">*</span></label>
         <p class="field-hint" id="providerHint">Your QuickBooks Company ID — found in QuickBooks under Settings &rarr; Account and settings</p>
@@ -687,9 +684,9 @@
         Start my free trial →
       </button>
 
-      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0c8c5cccccfe0c3c1d3c1d6c18ec1c9">[email&#160;protected]</a></div>
+      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email <a href="mailto:support@casava.ai">support@casava.ai</a></div>
 
-      <p class="privacy-note">No credit card required &nbsp;·&nbsp; 30-day free trial &nbsp;·&nbsp; We'll reach out personally before activating your account.</p>
+      <p class="privacy-note" id="privacyNote">No credit card required &nbsp;·&nbsp; 30-day free trial &nbsp;·&nbsp; We'll reach out personally before activating your account.</p>
 
     </form>
 
@@ -708,17 +705,18 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const WEBHOOK_URL = "https://casava-ai.app.n8n.cloud/webhook/onboard";
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const entryPath = urlParams.get("path") === "paid" ? "paid" : "trial";
-  const entryTier = urlParams.get("tier") || "";
-  const entrySessionID = urlParams.get("session_id") || "";
-  const tierLabels = { simmer: "Simmer", saute: "Sauté", full_flame: "Full Flame" };
-  const tierLabel = tierLabels[entryTier] || "";
   const SQUARE_APP_ID = "sq0idp-4yF0xYAmECN1jC3kLh7-gw";
   const STRIPE_CLIENT_ID = "ca_UjSklyvYkQue4eMLICzDr6OyUZerZpiQ";
+
+  // Read URL params
+  const urlParams = new URLSearchParams(window.location.search);
+  const entryPath = urlParams.get("path") === "paid" ? "paid" : "trial";
+  const entryTier = urlParams.get("tier") || "trial";
+  const entrySessionID = urlParams.get("session_id") || "";
+  const tierLabels = { simmer: "Simmer", saute: "Sauté", full_flame: "Full Flame", trial: "" };
+  const tierLabel = tierLabels[entryTier] || "";
 
   const form = document.getElementById("onboardForm");
   const submitBtn = document.getElementById("submitBtn");
@@ -731,6 +729,34 @@
   const paymentProviderIDInput = document.getElementById("paymentProviderID");
   const connectProviderSection = document.getElementById("connectProviderSection");
   const connectProviderBtn = document.getElementById("connectProviderBtn");
+
+  // Apply paid-path UI changes on load
+  (function applyEntryPath() {
+    if (entryPath !== "paid") return;
+
+    document.getElementById("headerBadge").textContent = "Account Setup";
+    document.getElementById("headerH1").innerHTML = "You're subscribed. <em>Let's get you set up.</em>";
+    document.getElementById("headerSubtext").textContent =
+      "Your " + (tierLabel || "Casava") + " plan is active. Complete your setup below and Zara will reach out to finish onboarding.";
+
+    if (tierLabel) {
+      const pill = document.getElementById("tierPill");
+      pill.textContent = "✓ " + tierLabel + " Plan";
+      pill.style.display = "inline-block";
+    }
+
+    submitBtn.textContent = "Complete my setup →";
+
+    document.getElementById("privacyNote").textContent =
+      "Your subscription is active · " + (tierLabel || "Casava") + " plan · You can manage billing at casava.ai/billing";
+
+    // Show Full Flame section if applicable
+    if (entryTier === "full_flame") {
+      document.getElementById("fullFlameDivider").style.display = "block";
+      document.getElementById("fullFlameSectionTitle").style.display = "flex";
+      document.getElementById("fullFlameFields").style.display = "block";
+    }
+  })();
 
   function updateSlugPreview() {
     const val = document.getElementById("businessSlug").value.trim();
@@ -843,7 +869,16 @@
       paymentProvider: form.paymentProvider.value,
       paymentProviderID: form.paymentProviderID.value.trim(),
       submittedAt: new Date().toISOString(),
-      source: "onboarding-form"
+      source: "onboarding-form",
+      // Path + tier fields
+      subscriptionPath: entryPath,
+      tier: entryTier,
+      stripeSessionID: entrySessionID,
+      // Full Flame fields (empty string if not shown)
+      customDomain: form.customDomain ? form.customDomain.value.trim() : "",
+      brandColor: form.brandColor ? form.brandColor.value.trim() : "",
+      logoURL: form.logoURL ? form.logoURL.value.trim() : "",
+      customWorkflowNotes: form.customWorkflowNotes ? form.customWorkflowNotes.value.trim() : ""
     };
 
     try {
@@ -856,11 +891,13 @@
       if (response.ok) {
         form.style.display = "none";
         successCard.classList.add("visible");
+
         if (entryPath === "paid") {
           document.getElementById("successHeadline").textContent = "Setup complete!";
           document.getElementById("successCopy").textContent =
             "Your Casava account is being activated. Check your email to confirm your address, then Zara will reach out on your chosen channel to finish setup.";
         }
+
         document.getElementById("successDetail").innerHTML =
           "<strong>Name:</strong> " + data.ownerName + "<br>" +
           "<strong>Business:</strong> " + data.companyName + "<br>" +
@@ -888,36 +925,7 @@
     }
   });
 
-  // Apply paid-path copy/UI changes
-  (function applyEntryPath() {
-    if (entryPath !== "paid") return;
-
-    document.getElementById("headerBadge").textContent = "Account Setup";
-    document.getElementById("headerH1").innerHTML = "You're subscribed. <em>Let's get you set up.</em>";
-    document.getElementById("headerSubtext").textContent =
-      "Your " + (tierLabel || "Casava") + " plan is active. Complete your setup below and Zara will reach out to finish onboarding.";
-
-    if (tierLabel) {
-      const pill = document.getElementById("tierPill");
-      pill.textContent = "✓ " + tierLabel + " Plan";
-      pill.style.display = "inline-block";
-    }
-
-    submitBtn.textContent = "Complete my setup →";
-
-    const privacyNote = document.querySelector(".privacy-note");
-    if (privacyNote) {
-      privacyNote.textContent = "Your subscription is active · " + (tierLabel || "Casava") + " plan · You can manage billing at casava.ai/billing";
-    }
-
-    if (entryTier === "full_flame") {
-      document.getElementById("fullFlameDivider").style.display = "block";
-      document.getElementById("fullFlameSectionTitle").style.display = "flex";
-      document.getElementById("fullFlameFields").style.display = "block";
-    }
-  })();
-
-  // Detect return from Square/Stripe OAuth and show a connected confirmation
+  // Detect return from Square/Stripe OAuth
   (function checkProviderConnected() {
     const params = new URLSearchParams(window.location.search);
     if (params.get("square_connected") === "true" || params.get("stripe_connected") === "true") {
