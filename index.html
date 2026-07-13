@@ -47,6 +47,12 @@
     [data-mobile-menu]{display:block !important;}
     [data-steps]{grid-template-columns:1fr !important;}
     [data-steps] > div[data-hero-step]{grid-column:span 1 !important;}
+    [data-hero-bg]{background-position:78% 30% !important;background-image:linear-gradient(180deg, rgba(13,28,46,.15) 0%, rgba(13,28,46,.85) 65%, rgba(13,28,46,.95) 100%), url('hero-kitchen.jpg') !important;}
+  }
+  @media (max-width:900px){
+    [data-cta-panels]{grid-template-columns:1fr !important;}
+    [data-cta-photo]{min-height:280px !important;}
+    [data-cta-text]{padding:44px 32px !important;}
   }
 </style>
 <script>
@@ -124,35 +130,18 @@ document.addEventListener('click', function (evt) {
   </nav>
 
   <!-- ============ HERO ============ -->
-  <header id="top" style="position:relative;border-bottom:1px solid var(--border);overflow:hidden">
-    <div style="position:absolute;inset:0;z-index:0;background:#f1f5f0"></div>
+  <header id="top" style="position:relative;border-bottom:1px solid var(--border);overflow:hidden;background-color:#0d1c2e;background-image:linear-gradient(180deg, rgba(13,28,46,.22) 0%, rgba(13,28,46,.05) 30%, rgba(13,28,46,.35) 100%), url('hero-kitchen.jpg');background-size:cover;background-position:center 20%" data-hero-bg>
     <div style="position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,86px) clamp(20px,4vw,48px) clamp(56px,6vw,80px);display:grid;grid-template-columns:1fr 440px;gap:clamp(32px,5vw,64px);align-items:center" data-hero>
       <div>
         <div style="display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7a3a12;background:var(--orange-light);border:1px solid var(--orange-mid);padding:6px 14px;border-radius:999px;margin-bottom:24px;animation:rise .6s ease both">
           <span style="width:7px;height:7px;border-radius:50%;background:var(--orange);animation:blink 1.8s infinite;animation-play-state:var(--motion)"></span>Catering automation for food businesses
         </div>
-        <p style="font-size:14px;font-weight:600;color:var(--muted);margin:0 0 14px;animation:rise .6s ease .08s both">Built for restaurants, caterers, and any food business offering catering services.</p>
-        <h1 style="font-family:'Manrope',sans-serif;font-size:clamp(38px,5.4vw,60px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin:0 0 20px;animation:rise .6s ease .05s both">Turn catering requests into confirmed bookings. <em style="color:var(--green-dark);font-style:italic">Automatically.</em></h1>
-        <p style="font-size:clamp(16px,1.5vw,19px);color:var(--muted);line-height:1.65;margin:0 0 30px;max-width:480px;animation:rise .6s ease .12s both">From the first inquiry to a paid, scheduled event: replies, quotes, invoices, payments and calendar booking, all handled for you. You just approve.</p>
+        <p style="font-size:14px;font-weight:600;color:#e8e0d3;margin:0 0 14px;animation:rise .6s ease .08s both">Built for restaurants, caterers, and any food business offering catering services.</p>
+        <h1 style="font-family:'Manrope',sans-serif;font-size:clamp(38px,5.4vw,60px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin:0 0 20px;animation:rise .6s ease .05s both;color:#fff">Turn catering requests into confirmed bookings. <em style="color:#9FE1CB;font-style:italic">Automatically.</em></h1>
+        <p style="font-size:clamp(16px,1.5vw,19px);color:#d8d2c4;line-height:1.65;margin:0 0 30px;max-width:480px;animation:rise .6s ease .12s both">From the first inquiry to a paid, scheduled event: replies, quotes, invoices, payments and calendar booking, all handled for you. You just approve.</p>
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:rise .6s ease .2s both">
           <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:16px 34px;border-radius:999px;font-size:16px;font-weight:700;text-decoration:none" style-hover="filter:brightness(1.08)">Start your free trial</a>
-          <span style="font-size:13px;color:var(--muted)">30 days free. <strong style="color:var(--green-dark)">No credit card.</strong></span>
-        </div>
-      </div>
-      <div style="position:relative;animation:rise .7s ease .18s both">
-        <div style="position:relative;z-index:1;background:#fff;border:1px solid var(--border);border-radius:20px;padding:20px;box-shadow:0 30px 70px rgba(30,27,23,.14)">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-            <span style="font-size:11px;color:var(--muted);font-weight:600">New request</span>
-            <span style="font-size:11px;font-weight:700;color:var(--green-dark);background:#e5f2ea;padding:4px 10px;border-radius:99px">Auto-handled</span>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="background:var(--surface);border-radius:12px;padding:12px 14px"><div style="font-size:12.5px;color:var(--muted);margin-bottom:3px">Garden Wedding · 95 guests</div><div style="font-size:14px;font-weight:700;color:var(--body)">Quote ready — $3,400</div></div>
-            <div style="display:flex;gap:9px"><span style="flex:1;text-align:center;background:var(--orange);color:#fff;font-size:13px;font-weight:700;padding:11px;border-radius:9px">Approve</span><span style="text-align:center;background:var(--surface);color:var(--muted);font-size:13px;font-weight:700;padding:11px 16px;border-radius:9px">Review</span></div>
-          </div>
-        </div>
-        <div style="position:absolute;z-index:2;bottom:-16px;left:-18px;background:#fff;border:1px solid var(--border);box-shadow:0 14px 34px rgba(30,27,23,.14);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:9px;animation:floaty 7s ease-in-out infinite;animation-play-state:var(--motion)">
-          <span style="width:30px;height:30px;border-radius:8px;background:#e5f2ea;display:flex;align-items:center;justify-content:center;color:var(--green-dark);font-weight:800;font-size:14px">✓</span>
-          <div><div style="font-size:13px;font-weight:800;color:var(--body);line-height:1">Booked &amp; confirmed</div><div style="font-size:11px;color:var(--muted)">while you were cooking</div></div>
+          <span style="font-size:13px;color:#cfc7b6">30 days free. <strong style="color:#9FE1CB">No credit card.</strong></span>
         </div>
       </div>
     </div>
@@ -162,7 +151,8 @@ document.addEventListener('click', function (evt) {
   <section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:clamp(52px,7vw,76px) clamp(20px,4vw,48px)">
     <div style="max-width:1180px;margin:0 auto">
       <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px">Why Casava?</div>
-      <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.1;letter-spacing:-.5px;margin:0 0 40px">Stop the catering chaos.</h2>
+      <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.1;letter-spacing:-.5px;margin:0 0 10px">Stop the catering chaos.</h2>
+      <p style="font-size:17px;color:var(--body);line-height:1.6;max-width:520px;margin:0 0 40px">You're a caterer, not an admin. Casava eliminates the friction eating into your time and revenue.</p>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" data-pain>
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px">
           <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">Leads gone cold</h3>
@@ -295,18 +285,21 @@ document.addEventListener('click', function (evt) {
 
   <!-- ============ FINAL CTA ============ -->
   <section style="padding:clamp(56px,7vw,84px) clamp(20px,4vw,48px)">
-    <div style="max-width:660px;margin:0 auto;text-align:center;background:var(--green-dark);border-radius:24px;padding:clamp(40px,6vw,56px) clamp(28px,5vw,48px);position:relative;overflow:hidden">
-      <div style="position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:22px 22px"></div>
-      <div style="position:relative;z-index:1">
-        <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(26px,3.4vw,34px);font-weight:900;color:#fff;line-height:1.18;letter-spacing:-.5px;margin:0 0 12px;text-wrap:balance">First impressions are delicious. Don't let poor processes sour them.</h2>
-        <p style="font-size:16px;color:#bfe3cf;margin:0 0 26px">Set up takes under 10 minutes.</p>
-        <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:28px">
-          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px">✓ 30-day free trial</span>
-          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px">✓ No credit card</span>
-          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px">✓ No setup fee</span>
+    <div style="max-width:1440px;margin:0 auto;border-radius:24px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr" data-cta-panels>
+      <div style="background:var(--green-dark);padding:64px 72px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center" data-cta-text>
+        <div style="position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:22px 22px"></div>
+        <div style="position:relative;z-index:1">
+          <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(26px,3.4vw,34px);font-weight:900;color:#fff;line-height:1.18;letter-spacing:-.5px;margin:0 0 12px;text-wrap:balance">First impressions are delicious. Don't let poor processes sour them.</h2>
+          <p style="font-size:16px;color:#bfe3cf;margin:0 0 26px">Set up takes under 10 minutes.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px">
+            <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px">✓ 30-day free trial</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px">✓ No credit card</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px">✓ No setup fee</span>
+          </div>
+          <a href="https://casava.ai/onboard.html" style="display:inline-block;background:#fff;color:var(--green-dark);padding:15px 36px;border-radius:999px;font-size:16px;font-weight:700;text-decoration:none" style-hover="filter:brightness(.96)">Start your free trial →</a>
         </div>
-        <a href="https://casava.ai/onboard.html" style="display:inline-block;background:#fff;color:var(--green-dark);padding:15px 36px;border-radius:999px;font-size:16px;font-weight:700;text-decoration:none" style-hover="filter:brightness(.96)">Start your free trial →</a>
       </div>
+      <div style="background-image:url('cta-event.jpg');background-size:cover;background-position:center" data-cta-photo></div>
     </div>
   </section>
 
@@ -324,7 +317,7 @@ document.addEventListener('click', function (evt) {
         <a href="/faq" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
         <a href="/privacy" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
         <a href="/terms" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
-        <a href="/cdn-cgi/l/email-protection#9ef7f0f8f1defdffedffe8ffb0fff7" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="4b22252d240b282a382a3d2a652a22">[email&#160;protected]</span></a>
+        <a href="/cdn-cgi/l/email-protection#e38a8d858ca3808290829582cd828a" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="e48d8a828ba4878597859285ca858d">[email&#160;protected]</span></a>
       </div>
     </div>
     <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
