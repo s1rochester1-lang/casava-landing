@@ -55,7 +55,24 @@
     [data-cta-text]{padding:44px 32px !important;}
   }
 </style>
+<script src="https://js.stripe.com/v3/"></script>
 <script>
+var STRIPE_PUBLISHABLE_KEY = 'pk_test_51TqJ2eRhvEAt9kbNcuOOnjZFWFlCgUaFeo4LVLnS3KzjZgSLcXCDewbPwS0j86De6CbPLe23qG5VDKhfEEYsUdgI00I6mQ4Gfo';
+var stripeCheckout = null;
+
+function closeStripeModal() {
+  var overlay = document.getElementById('stripe-modal-overlay');
+  if (overlay) { overlay.style.display = 'none'; }
+  if (stripeCheckout) { stripeCheckout.destroy(); stripeCheckout = null; }
+  var container = document.getElementById('stripe-checkout-container');
+  if (container) { container.innerHTML = ''; }
+}
+
+document.addEventListener('click', function (evt3) {
+  if (evt3.target && evt3.target.id === 'stripe-modal-close') { closeStripeModal(); }
+  if (evt3.target && evt3.target.id === 'stripe-modal-overlay') { closeStripeModal(); }
+});
+
 document.addEventListener('click', function (evt) {
   var btn = evt.target.closest('[data-checkout-tier]');
   if (!btn) { return; }
@@ -75,9 +92,18 @@ document.addEventListener('click', function (evt) {
   })
     .then(function (res) { if (!res.ok) { throw new Error('bad response'); } return res.json(); })
     .then(function (result) {
-      var url = result['checkoutUrl'];
-      if (url) { window.location.href = url; }
-      else { throw new Error('missing url'); }
+      var data = Array.isArray(result) ? result[0] : result;
+      var clientSecret = data.clientSecret;
+      if (!clientSecret) { throw new Error('missing clientSecret'); }
+      var overlay = document.getElementById('stripe-modal-overlay');
+      if (overlay) { overlay.style.display = 'flex'; }
+      var stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+      stripe.initEmbeddedCheckout({ clientSecret: clientSecret }).then(function (checkout) {
+        stripeCheckout = checkout;
+        checkout.mount('#stripe-checkout-container');
+      });
+      btn.textContent = label;
+      btn.disabled = false;
     })
     .catch(function () {
       btn.textContent = label;
@@ -317,7 +343,7 @@ document.addEventListener('click', function (evt) {
         <a href="/faq" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
         <a href="/privacy" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
         <a href="/terms" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
-        <a href="/cdn-cgi/l/email-protection#e38a8d858ca3808290829582cd828a" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="e48d8a828ba4878597859285ca858d">[email&#160;protected]</span></a>
+        <a href="/cdn-cgi/l/email-protection#3c55525a537c5f5d4f5d4a5d125d55" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="5d34333b321d3e3c2e3c2b3c733c34">[email&#160;protected]</span></a>
       </div>
     </div>
     <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
@@ -325,6 +351,13 @@ document.addEventListener('click', function (evt) {
       <p style="font-size:12.5px;color:#7a7264;margin:0">Meal prep services coming soon</p>
     </div>
   </footer>
+
+  <div id="stripe-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center">
+    <div style="background:#fff;border-radius:16px;padding:32px;max-width:520px;width:90%;position:relative;max-height:90vh;overflow-y:auto">
+      <button id="stripe-modal-close" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#666;line-height:1">✕</button>
+      <div id="stripe-checkout-container"></div>
+    </div>
+  </div>
 
 </main>
 
