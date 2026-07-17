@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expo — your business, at a glance</title>
+<meta name="description" content="Real-time catering analytics from a secure link. No login. No app to install — revenue, active orders, and bookings whenever you want them.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Casava">
+<meta property="og:title" content="Expo — your business, at a glance">
+<meta property="og:description" content="Real-time catering analytics from a secure link. No login. No app to install — revenue, active orders, and bookings whenever you want them.">
+<meta property="og:url" content="https://casava.ai/expo">
+<meta name="twitter:card" content="summary">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#000;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:rgba(245,100,27,.3)}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+  summary{list-style:none}
+  summary::-webkit-details-marker{display:none}
+  [data-mobile-menu]{display:none}
+  @media (max-width:880px){
+    [data-nav-links]{display:none !important;}
+    [data-mobile-menu]{display:block !important;}
+    [data-metrics]{grid-template-columns:1fr 1fr !important;}
+    [data-dash]{grid-template-columns:1fr !important;}
+  }
+  @media (max-width:600px){
+    [data-metrics]{grid-template-columns:1fr !important;}
+  }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#000000">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#000000"/>
+    <text x="600" y="400" font-family="Manrope, sans-serif" font-size="90" font-weight="900" fill="#9FE1CB" text-anchor="middle" dominant-baseline="central">Expo</text>
+  </svg>
+</template>
+
+<main data-screen-label="Expo Product" style="--orange:#F5641B;--green-mid:#9FE1CB;--ink:#000;--panel:#121212;--panel2:#181818;--stroke:rgba(255,255,255,.1);--text:#f4f2ef;--muted:#9a978f;font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--ink);overflow-x:hidden">
+
+  <!-- NAV -->
+  <nav style="background:#000;border-bottom:1px solid var(--stroke);padding:0 clamp(20px,4vw,48px);height:68px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200">
+    <a href="/" style="font-family:'Manrope',sans-serif;font-size:23px;font-weight:900;color:#fff;letter-spacing:-.5px;text-decoration:none">casava<span style="color:#fff">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
+    <div style="display:flex;align-items:center;gap:clamp(14px,3vw,30px)">
+      <div style="display:flex;align-items:center;gap:clamp(14px,3vw,30px)" data-nav-links>
+        <a href="/#how" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none" style-hover="color:#fff">How it works</a>
+        <a href="/casava" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none" style-hover="color:#fff">Casava</a>
+        <a href="/zara" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none" style-hover="color:#fff">Zara</a>
+        <a href="/pricing" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none" style-hover="color:#fff">Pricing</a>
+        <a href="/faq" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none" style-hover="color:#fff">FAQ</a>
+      </div>
+      <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap" style-hover="filter:brightness(1.1)">Start free trial</a>
+      <details data-mobile-menu style="display:none;position:relative">
+        <summary style="cursor:pointer;padding:6px;display:flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg></summary>
+        <div style="position:absolute;top:calc(100% + 12px);right:0;background:var(--panel2);border:1px solid var(--stroke);border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.55);padding:8px;display:flex;flex-direction:column;gap:2px;min-width:190px;z-index:250">
+          <a href="/#how" style="font-size:14.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:rgba(255,255,255,.06);color:#fff">How it works</a>
+          <a href="/casava" style="font-size:14.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:rgba(255,255,255,.06);color:#fff">Casava</a>
+          <a href="/zara" style="font-size:14.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:rgba(255,255,255,.06);color:#fff">Zara</a>
+          <a href="/pricing" style="font-size:14.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:rgba(255,255,255,.06);color:#fff">Pricing</a>
+          <a href="/faq" style="font-size:14.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:rgba(255,255,255,.06);color:#fff">FAQ</a>
+        </div>
+      </details>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header style="padding:clamp(60px,8vw,96px) clamp(20px,4vw,48px) clamp(48px,6vw,64px);text-align:center">
+    <div style="max-width:680px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-mid);margin-bottom:16px">Expo</div>
+      <h1 style="font-family:'Manrope',sans-serif;font-size:clamp(38px,5.5vw,58px);font-weight:900;line-height:1.05;letter-spacing:-1px;margin:0 0 18px;color:#fff">Your business, at a glance.</h1>
+      <p style="font-size:18px;color:var(--muted);line-height:1.6;margin:0">Real-time catering analytics from a secure link. No login. No app to install.</p>
+    </div>
+  </header>
+
+  <!-- DASHBOARD PREVIEW -->
+  <section style="padding:0 clamp(20px,4vw,48px) clamp(56px,7vw,84px);display:flex;justify-content:center">
+    <img src="expo-dashboard-phone.png" alt="Expo dashboard shown on a phone — total revenue, category breakdown, and recent orders" style="width:100%;max-width:420px;height:auto;display:block;margin:0 auto">
+  </section>
+
+  <!-- KEY METRICS -->
+  <section style="padding:0 clamp(20px,4vw,48px) clamp(56px,7vw,84px)">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:36px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px">Key metrics</div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(26px,3.6vw,38px);font-weight:900;line-height:1.1;letter-spacing:-.5px;margin:0;color:#fff">Four numbers that matter.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px" data-metrics>
+        <div style="background:var(--panel);border:1px solid var(--stroke);border-radius:16px;padding:22px">
+          <div style="font-family:'Manrope',sans-serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:6px">$9.8k</div>
+          <div style="font-size:13px;font-weight:700;color:var(--green-mid);margin-bottom:8px">Total Revenue</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.5">Booked and paid, this period.</div>
+        </div>
+        <div style="background:var(--panel);border:1px solid var(--stroke);border-radius:16px;padding:22px">
+          <div style="font-family:'Manrope',sans-serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:6px">14</div>
+          <div style="font-size:13px;font-weight:700;color:var(--green-mid);margin-bottom:8px">Active Orders</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.5">Confirmed events not yet delivered.</div>
+        </div>
+        <div style="background:var(--panel);border:1px solid var(--stroke);border-radius:16px;padding:22px">
+          <div style="font-family:'Manrope',sans-serif;font-size:26px;font-weight:900;color:var(--orange);margin-bottom:6px">$1.7k</div>
+          <div style="font-size:13px;font-weight:700;color:var(--orange);margin-bottom:8px">$ In Queue</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.5">Quotes sent, awaiting approval.</div>
+        </div>
+        <div style="background:var(--panel);border:1px solid var(--stroke);border-radius:16px;padding:22px">
+          <div style="font-family:'Manrope',sans-serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:6px">6</div>
+          <div style="font-size:13px;font-weight:700;color:var(--green-mid);margin-bottom:8px">Recent Bookings</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.5">Confirmed in the last 7 days.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESS MODEL -->
+  <section style="border-top:1px solid var(--stroke);border-bottom:1px solid var(--stroke);padding:clamp(52px,7vw,76px) clamp(20px,4vw,48px)">
+    <div style="max-width:700px;margin:0 auto;text-align:center">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-mid);margin-bottom:14px">Access</div>
+      <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(24px,3.2vw,32px);font-weight:900;line-height:1.2;letter-spacing:-.4px;margin:0 0 14px;color:#fff">No login. No app. Just your secure dashboard link.</h2>
+      <p style="font-size:15.5px;color:var(--muted);line-height:1.65;margin:0">Expo is reached with a private, tokenized link sent straight to you — open it whenever you want your numbers, from any device, without an account to set up or remember.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding:clamp(56px,7vw,84px) clamp(20px,4vw,48px)">
+    <div style="max-width:660px;margin:0 auto;text-align:center;background:var(--panel);border:1px solid var(--stroke);border-radius:24px;padding:clamp(40px,6vw,52px) clamp(28px,5vw,48px)">
+      <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(24px,3.2vw,32px);font-weight:900;color:#fff;line-height:1.2;letter-spacing:-.4px;margin:0 0 22px">See your numbers clearly.</h2>
+      <a href="https://casava.ai/onboard.html" style="display:inline-block;background:var(--orange);color:#fff;padding:15px 36px;border-radius:999px;font-size:16px;font-weight:700;text-decoration:none" style-hover="filter:brightness(1.08)">Start your free trial →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#000;border-top:1px solid var(--stroke);padding:32px clamp(20px,4vw,48px);display:flex;flex-direction:column;gap:18px">
+    <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
+      <a href="/" style="font-family:'Manrope',sans-serif;font-size:19px;font-weight:900;color:#fff;text-decoration:none">casava<span style="color:#fff">.</span>a<span style="position:relative;display:inline-block">ı<span style="position:absolute;left:50%;transform:translateX(-50%);top:0.17em;width:0.15em;height:0.15em;border-radius:50%;background:var(--orange)"></span></span></a>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Products</div>
+        <a href="/casava" style="font-size:13px;color:var(--muted);text-decoration:none" style-hover="color:#fff">Casava</a>
+        <a href="/zara" style="font-size:13px;color:var(--muted);text-decoration:none" style-hover="color:#fff">Zara</a>
+        <a href="/expo" style="font-size:13px;color:var(--muted);text-decoration:none" style-hover="color:#fff">Expo</a>
+      </div>
+      <div style="display:flex;gap:24px">
+        <a href="/faq" style="font-size:13px;color:var(--muted);text-decoration:none" style-hover="color:#fff">FAQ</a>
+        <a href="/privacy" style="font-size:13px;color:var(--muted);text-decoration:none" style-hover="color:#fff">Privacy</a>
+        <a href="/terms" style="font-size:13px;color:var(--muted);text-decoration:none" style-hover="color:#fff">Terms</a>
+        <a href="/cdn-cgi/l/email-protection#5d34333b321d3e3c2e3c2b3c733c34" style="font-size:13px;color:var(--muted);text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="472e2921280724263426312669262e">[email&#160;protected]</span></a>
+      </div>
+    </div>
+    <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid var(--stroke)">
+      <p style="font-size:12.5px;color:#5f5c56;margin:0">© 2026 Casava · Catering automation for food businesses</p>
+      <p style="font-size:12.5px;color:#5f5c56;margin:0">Meal prep services coming soon</p>
+    </div>
+  </footer>
+
+</main>
+
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>
