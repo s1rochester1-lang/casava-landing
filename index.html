@@ -47,7 +47,8 @@
     [data-mobile-menu]{display:block !important;}
     [data-steps]{grid-template-columns:1fr !important;}
     [data-steps] > div[data-hero-step]{grid-column:span 1 !important;}
-    [data-hero-bg]{background-position:78% 30% !important;background-image:linear-gradient(180deg, rgba(13,28,46,.15) 0%, rgba(13,28,46,.85) 65%, rgba(13,28,46,.95) 100%), url('hero-kitchen.jpg') !important;}
+    [data-hero-bg]{background-image:none !important;background-color:#0d1c2e !important;}
+    [data-hero-audience]{display:none !important;}
   }
   @media (max-width:900px){
     [data-cta-panels]{grid-template-columns:1fr !important;}
@@ -55,22 +56,30 @@
     [data-cta-text]{padding:44px 32px !important;}
   }
 </style>
-<script src="https://js.stripe.com/v3/"></script>
 <script>
 var STRIPE_PUBLISHABLE_KEY = 'pk_test_51TqJ2eRhvEAt9kbNcuOOnjZFWFlCgUaFeo4LVLnS3KzjZgSLcXCDewbPwS0j86De6CbPLe23qG5VDKhfEEYsUdgI00I6mQ4Gfo';
-var stripeCheckout = null;
+var stripe_checkout = null;
+var stripe_js_parts = ['https://', 'js.stripe', '.com/v3/'];
 
-function closeStripeModal() {
+function load_stripe_js(cb) {
+  if (typeof Stripe !== 'undefined') { cb(); return; }
+  var s = document.createElement('script');
+  s.onload = cb;
+  s.src = stripe_js_parts.join('');
+  document.head.appendChild(s);
+}
+
+function close_stripe_modal() {
   var overlay = document.getElementById('stripe-modal-overlay');
   if (overlay) { overlay.style.display = 'none'; }
-  if (stripeCheckout) { stripeCheckout.destroy(); stripeCheckout = null; }
+  if (stripe_checkout) { stripe_checkout.destroy(); stripe_checkout = null; }
   var container = document.getElementById('stripe-checkout-container');
   if (container) { container.innerHTML = ''; }
 }
 
 document.addEventListener('click', function (evt3) {
-  if (evt3.target && evt3.target.id === 'stripe-modal-close') { closeStripeModal(); }
-  if (evt3.target && evt3.target.id === 'stripe-modal-overlay') { closeStripeModal(); }
+  if (evt3.target && evt3.target.id === 'stripe-modal-close') { close_stripe_modal(); }
+  if (evt3.target && evt3.target.id === 'stripe-modal-overlay') { close_stripe_modal(); }
 });
 
 document.addEventListener('click', function (evt) {
@@ -93,14 +102,16 @@ document.addEventListener('click', function (evt) {
     .then(function (res) { if (!res.ok) { throw new Error('bad response'); } return res.json(); })
     .then(function (result) {
       var data = Array.isArray(result) ? result[0] : result;
-      var clientSecret = data.clientSecret;
-      if (!clientSecret) { throw new Error('missing clientSecret'); }
+      var client_secret = data.clientSecret;
+      if (!client_secret) { throw new Error('missing clientSecret'); }
       var overlay = document.getElementById('stripe-modal-overlay');
       if (overlay) { overlay.style.display = 'flex'; }
-      var stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-      stripe.initEmbeddedCheckout({ clientSecret: clientSecret }).then(function (checkout) {
-        stripeCheckout = checkout;
-        checkout.mount('#stripe-checkout-container');
+      load_stripe_js(function () {
+        var stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+        stripe.initEmbeddedCheckout({ clientSecret: client_secret }).then(function (checkout) {
+          stripe_checkout = checkout;
+          checkout.mount('#stripe-checkout-container');
+        });
       });
       btn.textContent = label;
       btn.disabled = false;
@@ -160,13 +171,13 @@ document.addEventListener('click', function (evt) {
     <div style="position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,86px) clamp(20px,4vw,48px) clamp(56px,6vw,80px);display:grid;grid-template-columns:1fr 440px;gap:clamp(32px,5vw,64px);align-items:center" data-hero>
       <div>
         <div style="display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7a3a12;background:var(--orange-light);border:1px solid var(--orange-mid);padding:6px 14px;border-radius:999px;margin-bottom:24px;animation:rise .6s ease both">
-          <span style="width:7px;height:7px;border-radius:50%;background:var(--orange);animation:blink 1.8s infinite;animation-play-state:var(--motion)"></span>Catering automation for food businesses
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--orange);animation:blink 1.8s infinite;animation-play-state:var(--motion)"></span>Catering automation built for food businesses
         </div>
-        <p style="font-size:14px;font-weight:600;color:#e8e0d3;margin:0 0 14px;animation:rise .6s ease .08s both">Built for restaurants, caterers, and any food business offering catering services.</p>
+        <p data-hero-audience style="font-size:14px;font-weight:600;color:#e8e0d3;margin:0 0 14px;animation:rise .6s ease .08s both">Built for restaurants, caterers, and any food business offering catering services.</p>
         <h1 style="font-family:'Manrope',sans-serif;font-size:clamp(38px,5.4vw,60px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin:0 0 20px;animation:rise .6s ease .05s both;color:#fff">Turn catering requests into confirmed bookings. <em style="color:#9FE1CB;font-style:italic">Automatically.</em></h1>
         <p style="font-size:clamp(16px,1.5vw,19px);color:#d8d2c4;line-height:1.65;margin:0 0 30px;max-width:480px;animation:rise .6s ease .12s both">From the first inquiry to a paid, scheduled event: replies, quotes, invoices, payments and calendar booking, all handled for you. You just approve.</p>
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:rise .6s ease .2s both">
-          <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:16px 34px;border-radius:999px;font-size:16px;font-weight:700;text-decoration:none" style-hover="filter:brightness(1.08)">Start your free trial</a>
+          <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:16px 34px;border-radius:999px;font-size:16px;font-weight:700;text-decoration:none" style-hover="filter:brightness(1.08)">Start 30-day free trial</a>
           <span style="font-size:13px;color:#cfc7b6">30 days free. <strong style="color:#9FE1CB">No credit card.</strong></span>
         </div>
       </div>
@@ -183,19 +194,19 @@ document.addEventListener('click', function (evt) {
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px">
           <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">Leads gone cold</h3>
           <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 12px">A client inquires at 11pm and books whoever replies first. Revenue walks out while you sleep.</p>
-          <p style="font-size:11.5px;color:var(--muted);opacity:.75;line-height:1.5;margin:0 0 14px">Leads contacted within 5 minutes are 21x more likely to convert than those contacted after 30 minutes.<sup>1</sup></p>
+          <p style="font-size:15px;font-style:italic;color:var(--muted);opacity:.75;line-height:1.5;margin:0 0 14px">"Leads contacted within 5 minutes are 21x more likely to convert than those contacted after 30 minutes."<sup>1</sup></p>
           <div style="font-size:14px;font-weight:600;color:var(--green-dark);display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--surface)"><span>✓</span>Casava replies instantly, 24/7</div>
         </div>
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px">
           <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">The admin grind</h3>
-          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 12px">Quotes, invoices, calendar updates, payment chasing — dozens of minutes of paperwork on every booking.</p>
-          <p style="font-size:11.5px;color:var(--muted);opacity:.75;line-height:1.5;margin:0 0 14px">60% of business owners could save 30% of their time by automating routine tasks.<sup>2</sup></p>
+          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 12px">Quotes, invoices, calendar updates, payment chasing: dozens of minutes of paperwork on every booking.</p>
+          <p style="font-size:15px;font-style:italic;color:var(--muted);opacity:.75;line-height:1.5;margin:0 0 14px">"60% of business owners could save 30% of their time by automating routine tasks."<sup>2</sup></p>
           <div style="font-size:14px;font-weight:600;color:var(--green-dark);display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--surface)"><span>✓</span>All of it automated after one approval</div>
         </div>
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px">
           <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">Details fall through the cracks</h3>
-          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 12px">Guest count, allergies, delivery address, timing — passed along by phone call, sticky note, and spreadsheet before it reaches the kitchen. Something always gets dropped.</p>
-          <p style="font-size:11.5px;color:var(--muted);opacity:.75;line-height:1.5;margin:0 0 14px">Businesses hear from only 4% of dissatisfied customers.<sup>3</sup></p>
+          <p style="font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 12px">Guest count, allergies, delivery address, timing, passed along by phone call, sticky note, and spreadsheet before it reaches the kitchen. Something always gets dropped.</p>
+          <p style="font-size:15px;font-style:italic;color:var(--muted);opacity:.75;line-height:1.5;margin:0 0 14px">"Businesses hear from only 4% of dissatisfied customers."<sup>3</sup></p>
           <div style="font-size:14px;font-weight:600;color:var(--green-dark);display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--surface)"><span>✓</span>Casava captures every detail once and carries it through automatically</div>
         </div>
       </div>
@@ -215,7 +226,7 @@ document.addEventListener('click', function (evt) {
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px rgba(30,27,23,.08)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><span style="font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:var(--orange)">Step 01</span><span style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-dark);background:#e5f2ea;padding:4px 9px;border-radius:99px">Automatic</span></div>
           <h3 style="font-size:17px;font-weight:800;margin:0 0 8px">They tell you what they need</h3>
-          <p style="font-size:14.5px;color:var(--muted);line-height:1.6;margin:0">A simple request form, filled out on their own time — any hour, any day.</p>
+          <p style="font-size:14.5px;color:var(--muted);line-height:1.6;margin:0">A simple request form, filled out on their own time, any hour, any day.</p>
         </div>
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px rgba(30,27,23,.08)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><span style="font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:var(--orange)">Step 02</span><span style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-dark);background:#e5f2ea;padding:4px 9px;border-radius:99px">Automatic</span></div>
@@ -226,7 +237,7 @@ document.addEventListener('click', function (evt) {
           <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:20px 20px"></div>
           <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><span style="font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:#bfe3cf">Step 03</span><span style="font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--green-dark);background:#fff;padding:4px 9px;border-radius:99px">Your one move</span></div>
           <h3 style="position:relative;font-family:'Manrope',sans-serif;font-size:19px;font-weight:900;margin:0 0 8px">Tap approve</h3>
-          <p style="position:relative;font-size:14.5px;color:rgba(255,255,255,.86);line-height:1.6;margin:0">One tap, right from a notification on WhatsApp, Telegram, SMS or email. No new app to learn — just the one you already use.</p>
+          <p style="position:relative;font-size:14.5px;color:rgba(255,255,255,.86);line-height:1.6;margin:0">One tap, right from a notification on WhatsApp, Telegram, SMS or email. No new app to learn, just the one you already use.</p>
         </div>
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px rgba(30,27,23,.08)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><span style="font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:var(--orange)">Step 04</span><span style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-dark);background:#e5f2ea;padding:4px 9px;border-radius:99px">Automatic</span></div>
@@ -294,9 +305,9 @@ document.addEventListener('click', function (evt) {
           <div style="display:flex;flex-direction:column;gap:11px">
             <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Everything in Sauté</div>
             <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Expo Pro (advanced analytics)</div>
-            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Full white-label — your domain, your brand, no Casava branding anywhere</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Full white-label, your domain, your brand, no Casava branding anywhere</div>
             <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Custom workflow configuration support</div>
-            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Priority support — same-day response via your preferred channel</div>
+            <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Priority support, same-day response via your preferred channel</div>
           </div>
           <button type="button" data-checkout-tier="full_flame" style="display:block;width:100%;text-align:center;background:#005231;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;border:none;cursor:pointer;margin-top:20px" style-hover="filter:brightness(1.08)">Subscribe now</button>
           <div data-checkout-error style="display:none;color:#c0392b;font-size:12px;margin-top:8px;text-align:center"></div>
@@ -343,11 +354,11 @@ document.addEventListener('click', function (evt) {
         <a href="/faq" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
         <a href="/privacy" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
         <a href="/terms" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
-        <a href="/cdn-cgi/l/email-protection#3c55525a537c5f5d4f5d4a5d125d55" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="5d34333b321d3e3c2e3c2b3c733c34">[email&#160;protected]</span></a>
+        <a href="/cdn-cgi/l/email-protection#f891969e97b89b998b998e99d69991" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="f29b9c949db2919381938493dc939b">[email&#160;protected]</span></a>
       </div>
     </div>
     <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
-      <p style="font-size:12.5px;color:#7a7264;margin:0">© 2026 Casava · Catering automation for food businesses</p>
+      <p style="font-size:12.5px;color:#7a7264;margin:0">© 2026 Casava · Catering automation built for food businesses</p>
       <p style="font-size:12.5px;color:#7a7264;margin:0">Meal prep services coming soon</p>
     </div>
   </footer>
