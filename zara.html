@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zara — your Casava configuration assistant</title>
-<meta name="description" content="Zara is your owner-only assistant. Message her in plain language to change settings — she confirms with YES, and it's saved. No dashboard, no login.">
+<title>Zara, your Casava configuration assistant</title>
+<meta name="description" content="Zara is your owner-only assistant. Message her in plain language to change settings, she confirms with YES, and it's saved. No dashboard, no login.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Casava">
-<meta property="og:title" content="Zara — your Casava configuration assistant">
-<meta property="og:description" content="Zara is your owner-only assistant. Message her in plain language to change settings — she confirms with YES, and it's saved. No dashboard, no login.">
+<meta property="og:title" content="Zara, your Casava configuration assistant">
+<meta property="og:description" content="Zara is your owner-only assistant. Message her in plain language to change settings, she confirms with YES, and it's saved. No dashboard, no login.">
 <meta property="og:url" content="https://casava.ai/zara">
 <meta name="twitter:card" content="summary">
 <script src="./support.js"></script>
@@ -26,8 +26,10 @@
   ::selection{background:rgba(245,100,27,.22)}
   summary{list-style:none}
   summary::-webkit-details-marker{display:none}
+  [data-mobile-menu]{display:none}
   @media (max-width:880px){
     [data-nav-links]{display:none !important;}
+    [data-mobile-menu]{display:block !important;}
     [data-config]{grid-template-columns:1fr !important;}
     [data-flow]{grid-template-columns:1fr !important;}
     [data-examples]{grid-template-columns:1fr !important;}
@@ -62,6 +64,17 @@
         <a href="/faq" style="font-size:14px;font-weight:500;color:var(--body);text-decoration:none" style-hover="color:var(--green-dark)">FAQ</a>
       </div>
       <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap" style-hover="filter:brightness(1.06)">Start free trial</a>
+      <details data-mobile-menu style="display:none;position:relative">
+        <summary style="cursor:pointer;padding:6px;display:flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--body)" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg></summary>
+        <div style="position:absolute;top:calc(100% + 12px);right:0;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 40px rgba(30,27,23,.14);padding:8px;display:flex;flex-direction:column;gap:2px;min-width:190px;z-index:250">
+          <a href="/#how" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">How it works</a>
+          <a href="/casava" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Casava</a>
+          <a href="/zara" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Zara</a>
+          <a href="/expo" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Expo</a>
+          <a href="/pricing" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Pricing</a>
+          <a href="/faq" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">FAQ</a>
+        </div>
+      </details>
     </div>
   </nav>
 
@@ -70,7 +83,7 @@
     <div style="max-width:680px;margin:0 auto">
       <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:16px">Meet Zara</div>
       <h1 style="font-family:'Manrope',sans-serif;font-size:clamp(38px,5.5vw,58px);font-weight:900;line-height:1.05;letter-spacing:-1px;margin:0 0 18px">Meet Zara.</h1>
-      <p style="font-size:18px;color:var(--muted);line-height:1.6;margin:0">Your Casava assistant. She manages your business settings over chat — just message her naturally.</p>
+      <p style="font-size:18px;color:var(--muted);line-height:1.6;margin:0">Your Casava assistant. She manages your business settings over chat, just message her naturally.</p>
     </div>
   </header>
 
@@ -80,7 +93,7 @@
       <div style="display:flex;flex-direction:column;gap:22px">
         <div style="display:flex;gap:14px;align-items:flex-start">
           <span style="width:32px;height:32px;border-radius:50%;background:var(--green-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:900;font-size:14px;flex-shrink:0">1</span>
-          <div><div style="font-size:16px;font-weight:800;margin-bottom:4px">You message Zara</div><div style="font-size:14.5px;color:var(--muted);line-height:1.55">Tell her what to change, in plain language — no forms, no dashboard.</div></div>
+          <div><div style="font-size:16px;font-weight:800;margin-bottom:4px">You message Zara</div><div style="font-size:14.5px;color:var(--muted);line-height:1.55">Tell her what to change, in plain language, no forms, no dashboard.</div></div>
         </div>
         <div style="display:flex;gap:14px;align-items:flex-start">
           <span style="width:32px;height:32px;border-radius:50%;background:var(--green-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:900;font-size:14px;flex-shrink:0">2</span>
@@ -141,7 +154,7 @@
         </div>
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:9px">
           <div style="align-self:flex-end;max-width:88%;background:var(--green-dark);color:#fff;font-size:12.5px;line-height:1.45;padding:9px 12px;border-radius:12px 12px 3px 12px">Bookings under 48 hrs notice now need a rush fee</div>
-          <div style="align-self:flex-start;max-width:92%;background:var(--surface);color:var(--body);font-size:12.5px;line-height:1.45;padding:9px 12px;border-radius:3px 12px 12px 12px">Got it — add a rush fee for requests inside 48 hours. What amount?</div>
+          <div style="align-self:flex-start;max-width:92%;background:var(--surface);color:var(--body);font-size:12.5px;line-height:1.45;padding:9px 12px;border-radius:3px 12px 12px 12px">Got it, add a rush fee for requests inside 48 hours. What amount?</div>
           <div style="align-self:flex-end;background:var(--green-dark);color:#fff;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:12px 12px 3px 12px">$40</div>
         </div>
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:9px">
@@ -188,7 +201,7 @@
         <a href="/faq" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
         <a href="/privacy" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
         <a href="/terms" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
-        <a href="/cdn-cgi/l/email-protection#bbd2d5ddd4fbd8dac8dacdda95dad2" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="7b12151d143b181a081a0d1a551a12">[email&#160;protected]</span></a>
+        <a href="mailto:info@casava.ai" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">info@casava.ai</a>
       </div>
     </div>
     <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
@@ -200,5 +213,5 @@
 </main>
 
 </x-dc>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</body>
 </html>
