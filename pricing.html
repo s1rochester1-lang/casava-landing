@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pricing — Casava</title>
+<title>Pricing, Casava</title>
 <meta name="description" content="Pick your plan for catering automation. No setup fee, no contracts, 30-day free trial.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Casava">
-<meta property="og:title" content="Pricing — Casava">
+<meta property="og:title" content="Pricing, Casava">
 <meta property="og:description" content="Pick your plan for catering automation. No setup fee, no contracts, 30-day free trial.">
 <meta property="og:url" content="https://casava.ai/pricing">
 <meta name="twitter:card" content="summary">
@@ -33,10 +33,18 @@
     [data-compare] table{font-size:12px !important;}
   }
 </style>
-<script src="https://js.stripe.com/v3/"></script>
 <script>
 var STRIPE_PUBLISHABLE_KEY = 'pk_test_51TqJ2eRhvEAt9kbNcuOOnjZFWFlCgUaFeo4LVLnS3KzjZgSLcXCDewbPwS0j86De6CbPLe23qG5VDKhfEEYsUdgI00I6mQ4Gfo';
 var stripeCheckout = null;
+var stripeJsParts = ['https://', 'js.stripe', '.com/v3/'];
+
+function loadStripeJs(cb) {
+  if (typeof Stripe !== 'undefined') { cb(); return; }
+  var s = document.createElement('script');
+  s.onload = cb;
+  s.src = stripeJsParts.join('');
+  document.head.appendChild(s);
+}
 
 function closeStripeModal() {
   var overlay = document.getElementById('stripe-modal-overlay');
@@ -75,10 +83,12 @@ document.addEventListener('click', function (evt) {
       if (!clientSecret) { throw new Error('missing clientSecret'); }
       var overlay = document.getElementById('stripe-modal-overlay');
       if (overlay) { overlay.style.display = 'flex'; }
-      var stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-      stripe.initEmbeddedCheckout({ clientSecret: clientSecret }).then(function (checkout) {
-        stripeCheckout = checkout;
-        checkout.mount('#stripe-checkout-container');
+      loadStripeJs(function () {
+        var stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+        stripe.initEmbeddedCheckout({ clientSecret: clientSecret }).then(function (checkout) {
+          stripeCheckout = checkout;
+          checkout.mount('#stripe-checkout-container');
+        });
       });
       btn.textContent = label;
       btn.disabled = false;
@@ -154,7 +164,7 @@ document.addEventListener('click', function (evt) {
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Seamless invoicing</div>
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Automatic calendar scheduling</div>
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Approve from any messaging app</div>
-          <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Zara — account configuration</div>
+          <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Zara, account configuration</div>
         </div>
         <button type="button" data-checkout-tier="simmer" style="display:block;width:100%;text-align:center;background:var(--body);color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;border:none;cursor:pointer;margin-top:20px" style-hover="background:var(--green-dark)">Subscribe now</button>
         <div data-checkout-error style="display:none;color:#c0392b;font-size:12px;margin-top:8px;text-align:center"></div>
@@ -166,7 +176,7 @@ document.addEventListener('click', function (evt) {
         <div style="text-align:center;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.14)"><span style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:#fff">$199</span><div style="font-size:12px;color:rgba(255,248,241,.65);margin-top:2px">per month <span style="color:rgba(255,248,241,.5)">USD</span></div></div>
         <div style="display:flex;flex-direction:column;gap:11px">
           <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Everything in Simmer</div>
-          <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Zara — full configuration, incl. menu &amp; prices</div>
+          <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Zara, full configuration, incl. menu &amp; prices</div>
           <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Custom quote templates</div>
           <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Multi-channel approvals (WhatsApp, Telegram, SMS, Email)</div>
           <div style="display:flex;gap:9px;font-size:14px;color:rgba(255,248,241,.85);line-height:1.45"><span style="color:#9FE1CB;font-weight:800">✓</span>Team access</div>
@@ -182,9 +192,9 @@ document.addEventListener('click', function (evt) {
         <div style="display:flex;flex-direction:column;gap:11px">
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Everything in Sauté</div>
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Expo Pro (advanced analytics)</div>
-          <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Full white-label — your domain, your brand, no Casava branding anywhere</div>
+          <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Full white-label, your domain, your brand, no Casava branding anywhere</div>
           <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Custom workflow configuration support</div>
-          <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Priority support — same-day response via your preferred channel</div>
+          <div style="display:flex;gap:9px;font-size:14px;color:var(--muted);line-height:1.45"><span style="color:var(--green-dark);font-weight:800">✓</span>Priority support, same-day response via your preferred channel</div>
         </div>
         <button type="button" data-checkout-tier="full_flame" style="display:block;width:100%;text-align:center;background:var(--body);color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:999px;border:none;cursor:pointer;margin-top:20px" style-hover="background:var(--green-dark)">Subscribe now</button>
         <div data-checkout-error style="display:none;color:#c0392b;font-size:12px;margin-top:8px;text-align:center"></div>
@@ -219,8 +229,8 @@ document.addEventListener('click', function (evt) {
           <tr style="border-top:1px solid var(--border)"><td style="padding:12px 18px;color:var(--muted)">AI inquiry replies, 24/7</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
           <tr style="border-top:1px solid var(--border)"><td style="padding:12px 18px;color:var(--muted)">Automatic calendar scheduling</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
           <tr style="border-top:1px solid var(--border)"><td style="padding:12px 18px;color:var(--muted)">Approve from any messaging app</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
-          <tr style="border-top:1px solid var(--border)"><td style="padding:12px 18px;color:var(--muted)">Zara — account configuration</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
-          <tr style="border-top:1px solid var(--border)"><td style="padding:12px 18px;color:var(--muted)">Zara — full configuration, incl. menu &amp; prices</td><td style="text-align:center;color:var(--border)">—</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:12px 18px;color:var(--muted)">Zara, account configuration</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:12px 18px;color:var(--muted)">Zara, full configuration, incl. menu &amp; prices</td><td style="text-align:center;color:var(--border)">—</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
           <tr style="border-top:1px solid var(--border)"><td style="padding:12px 18px;color:var(--muted)">Custom quote templates</td><td style="text-align:center;color:var(--border)">—</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
           <tr style="border-top:1px solid var(--border)"><td style="padding:12px 18px;color:var(--muted)">Multi-channel approvals (WhatsApp, Telegram, SMS, Email)</td><td style="text-align:center;color:var(--border)">—</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
           <tr style="border-top:1px solid var(--border)"><td style="padding:12px 18px;color:var(--muted)">Team access</td><td style="text-align:center;color:var(--border)">—</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
@@ -242,7 +252,7 @@ document.addEventListener('click', function (evt) {
         <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(24px,3.4vw,32px);font-weight:900;letter-spacing:-.4px;margin:0">Common questions.</h2>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">What happens at day 30?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">We'll be in touch before your trial ends to share current features and pricing. If you choose not to continue, simply let us know and your account will be deactivated. Your customer data will be made available for export.</p></details>
+        <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">What happens at day 30 of the Free Trial?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">We'll be in touch before your trial ends to share current features and pricing. If you choose not to continue, simply let us know and your account will be deactivated. Your customer data will be made available for export.</p></details>
         <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">What if I cancel?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">Cancel anytime, no penalty. Your account stays active through the end of the current billing period.</p></details>
         <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">Can I switch tiers later?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">Yes — upgrade or downgrade whenever your business needs change, effective the next billing cycle.</p></details>
         <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">Is there a setup fee?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">No. There's never a setup fee on any tier.</p></details>
@@ -273,7 +283,7 @@ document.addEventListener('click', function (evt) {
         <a href="/faq" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
         <a href="/privacy" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
         <a href="/terms" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
-        <a href="/cdn-cgi/l/email-protection#0d64636b624d6e6c7e6c7b6c236c64" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="2f464149406f4c4e5c4e594e014e46">[email&#160;protected]</span></a>
+        <a href="mailto:info@casava.ai" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">info@casava.ai</a>
       </div>
     </div>
     <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
@@ -292,5 +302,5 @@ document.addEventListener('click', function (evt) {
 </main>
 
 </x-dc>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</body>
 </html>
