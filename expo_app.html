@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Expo — Casava</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange: #F5641B;
+  --green-mid: #9FE1CB;
+  --green-dark: #005236;
+  --navy: #07123D;
+  --bg: #040614;
+  --header-bg: rgba(20,18,25,0.80);
+  --card-bg: rgba(28,27,33,0.80);
+  --elevated: rgba(43,41,48,0.70);
+  --metric-bg: rgba(4,18,46,0.70);
+  --text-primary: #E6E0EA;
+  --text-muted: rgba(230,224,234,0.45);
+  --nav-inactive: #6A6977;
+  --divider: rgba(83,68,57,0.12);
+  --card-border: rgba(83,68,57,0.20);
+  --nav-border: rgba(83,68,57,0.12);
+  --nav-bg: rgba(4,6,20,0.96);
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background glow */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 390px; height: 390px;
+  background: radial-gradient(circle, rgba(7,109,184,0.50) 0%, rgba(3,49,82,0) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* HEADER */
+.header {
+  position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+  width: 390px; height: 64px;
+  background: var(--header-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--card-border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px; font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.logo span.c { color: var(--green-mid); }
+.logo span.ai { color: var(--orange); }
+
+.notif-btn {
+  position: relative; background: none; border: none;
+  color: var(--orange); cursor: pointer;
+  display: flex; align-items: center;
+}
+.notif-pip {
+  position: absolute; top: 2px; right: 2px;
+  width: 7px; height: 7px;
+  background: #FF0808; border-radius: 50%;
+  border: 1.5px solid var(--bg);
+}
+
+/* SCROLL CONTAINER */
+.scroll {
+  position: fixed; top: 64px; bottom: 56px;
+  left: 50%; transform: translateX(-50%);
+  width: 390px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px 20px 24px;
+  z-index: 1;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll::-webkit-scrollbar { display: none; }
+
+/* DONUT */
+.donut-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  margin-bottom: 20px;
+}
+
+.donut-container {
+  position: relative;
+  width: 344px; height: 344px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+#donut-svg {
+  position: absolute; top: 0; left: 0;
+  width: 344px; height: 344px;
+}
+
+.donut-center {
+  position: relative; z-index: 2;
+  text-align: center;
+  pointer-events: none;
+}
+.donut-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.donut-amount {
+  font-family: 'Manrope', sans-serif;
+  font-size: 36px; font-weight: 900;
+  color: #ffffff; line-height: 1;
+  margin-bottom: 4px;
+}
+.donut-trend {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--green-mid);
+}
+
+/* TIME SELECTOR */
+.time-sel {
+  width: 100%; height: 52px;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 4px;
+  display: flex;
+  margin-bottom: 16px;
+}
+.time-btn {
+  flex: 1; border: none; background: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--text-muted);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.time-btn.active {
+  background: var(--elevated);
+  color: var(--orange);
+}
+
+/* METRIC CARDS */
+.metric-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin-bottom: 24px;
+}
+.metric-card {
+  background: var(--metric-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 20px;
+  height: 121px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative; overflow: hidden;
+}
+.metric-icon {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+.metric-icon.orange { color: var(--orange); }
+.metric-icon.green { color: var(--green-mid); }
+.metric-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.metric-value {
+  font-family: 'Manrope', sans-serif;
+  font-size: 28px; font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+/* RECENT ORDERS */
+.section-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px; font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.order-list { display: flex; flex-direction: column; }
+
+.order-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--divider);
+  cursor: pointer;
+}
+.order-row:last-child { border-bottom: none; }
+
+.order-thumb {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--elevated);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px; font-weight: 900;
+  color: var(--text-primary);
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.order-info { flex: 1; min-width: 0; }
+.order-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+.order-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 400;
+  color: var(--text-muted);
+}
+
+.order-right {
+  display: flex; align-items: center; gap: 6px;
+  flex-shrink: 0;
+}
+.order-amount {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--green-mid);
+}
+.order-chevron {
+  font-size: 16px;
+  color: rgba(230,224,234,0.40);
+}
+
+/* LOADING / ERROR */
+.state-msg {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; height: 200px; gap: 12px;
+  color: var(--text-muted);
+  font-size: 14px; font-weight: 500;
+}
+.spin {
+  animation: spin 0.8s linear infinite;
+  font-size: 32px; color: var(--orange);
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed; bottom: 0;
+  left: 50%; transform: translateX(-50%);
+  width: 390px; height: 56px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--nav-border);
+  display: flex; align-items: center;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.nav-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 3px; cursor: pointer; border: none; background: none;
+  padding: 8px 0;
+}
+.nav-icon {
+  font-size: 22px;
+  color: var(--nav-inactive);
+}
+.nav-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(230,224,234,0.45);
+}
+.nav-item.active .nav-icon { color: var(--orange); }
+.nav-item.active .nav-label { color: var(--orange); }
+
+/* SEGMENT TOOLTIP */
+.seg-tooltip {
+  position: absolute;
+  background: rgba(43,41,48,0.95);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+  min-width: 140px;
+  backdrop-filter: blur(10px);
+}
+.seg-tooltip.visible { opacity: 1; }
+.seg-tooltip-cat {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+.seg-tooltip-dot {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; margin-right: 6px; vertical-align: middle;
+}
+.seg-tooltip-amount {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px; font-weight: 900;
+  color: #fff; line-height: 1.1;
+}
+.seg-tooltip-pct {
+  font-size: 12px; font-weight: 600;
+  color: var(--orange); margin-top: 2px;
+}
+
+@media (max-width: 390px) {
+  .header, .scroll, .bottom-nav { width: 100%; }
+  .donut-container { width: 100%; }
+  body::before { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">
+    <span class="c">casava</span><span style="color:rgba(230,224,234,0.6)">.</span><span class="ai">ai</span>
+  </div>
+  <button class="notif-btn" aria-label="Notifications">
+    <span class="material-symbols-outlined" style="font-size:24px">notifications</span>
+    <div class="notif-pip"></div>
+  </button>
+</header>
+
+<!-- MAIN SCROLL -->
+<div class="scroll" id="main-scroll">
+
+  <!-- Loading state -->
+  <div id="state-loading" class="state-msg">
+    <span class="material-symbols-outlined spin">progress_activity</span>
+    <span>Loading your dashboard…</span>
+  </div>
+
+  <!-- Content (hidden until loaded) -->
+  <div id="content" style="display:none">
+
+    <!-- DONUT CHART -->
+    <div class="donut-wrap">
+      <div class="donut-container" id="donut-container">
+        <svg id="donut-svg" viewBox="0 0 344 344" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="donut-center" id="donut-center">
+          <div class="donut-eyebrow" id="donut-eyebrow">TOTAL REVENUE</div>
+          <div class="donut-amount" id="donut-amount">$0</div>
+          <div class="donut-trend" id="donut-trend"></div>
+        </div>
+        <div class="seg-tooltip" id="seg-tooltip">
+          <div class="seg-tooltip-cat" id="tt-cat"></div>
+          <div class="seg-tooltip-amount" id="tt-amount"></div>
+          <div class="seg-tooltip-pct" id="tt-pct"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIME SELECTOR -->
+    <div class="time-sel" id="time-sel">
+      <button class="time-btn active" data-period="all">All Time</button>
+      <button class="time-btn" data-period="1m">1M</button>
+      <button class="time-btn" data-period="6m">6M</button>
+      <button class="time-btn" data-period="1y">1Y</button>
+    </div>
+
+    <!-- METRIC CARDS -->
+    <div class="metric-row">
+      <div class="metric-card">
+        <span class="material-symbols-outlined metric-icon orange">receipt_long</span>
+        <div>
+          <div class="metric-label">Active Orders</div>
+          <div class="metric-value" id="active-orders">—</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <span class="material-symbols-outlined metric-icon green">paid</span>
+        <div>
+          <div class="metric-label">$ In Queue</div>
+          <div class="metric-value" id="in-queue">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECENT ORDERS -->
+    <div class="section-title">Recent Orders</div>
+    <div class="order-list" id="order-list"></div>
+
+  </div>
+
+  <!-- Error state -->
+  <div id="state-error" class="state-msg" style="display:none">
+    <span class="material-symbols-outlined" style="font-size:32px;color:var(--orange)">error</span>
+    <span id="error-msg">Failed to load dashboard</span>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-item active">
+    <span class="material-symbols-outlined nav-icon">dashboard</span>
+    <span class="nav-label">Home</span>
+  </button>
+  <button class="nav-item">
+    <span class="material-symbols-outlined nav-icon">receipt_long</span>
+    <span class="nav-label">Orders</span>
+  </button>
+  <button class="nav-item">
+    <span class="material-symbols-outlined nav-icon">analytics</span>
+    <span class="nav-label">Analytics</span>
+  </button>
+  <button class="nav-item">
+    <span class="material-symbols-outlined nav-icon">settings</span>
+    <span class="nav-label">Settings</span>
+  </button>
+</nav>
+
+<script>
+const API = 'https://casava-ai.app.n8n.cloud/webhook/expo-data';
+const params = new URLSearchParams(window.location.search);
+const BUSINESS_ID = params.get('businessID') || '';
+const TOKEN = params.get('token') || '';
+let currentPeriod = 'all';
+let currentData = null;
+
+function fmt(n) {
+  if (n >= 1000) return '$' + (n / 1000).toFixed(1) + 'K';
+  return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function fmtDate(d) {
+  if (!d) return '';
+  const dt = new Date(d);
+  return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+// DONUT CHART (SVG conic gradient with radial mask)
+function buildDonut(segments, total) {
+  const svg = document.getElementById('donut-svg');
+  svg.innerHTML = '';
+  const cx = 172, cy = 172, r = 150, hole = 0.65;
+  const inner = r * hole;
+  const GAP = 2; // degrees between segments
+
+  if (!segments || segments.length === 0) {
+    // Empty ring
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', cx); circle.setAttribute('cy', cy);
+    circle.setAttribute('r', (r + inner) / 2);
+    circle.setAttribute('fill', 'none');
+    circle.setAttribute('stroke', 'rgba(230,224,234,0.08)');
+    circle.setAttribute('stroke-width', r - inner);
+    svg.appendChild(circle);
+    return;
+  }
+
+  const total_pct = segments.reduce((s, seg) => s + seg.percentage, 0);
+  let startAngle = -90;
+
+  segments.forEach((seg, idx) => {
+    const angleDeg = (seg.percentage / 100) * 360 - GAP;
+    if (angleDeg <= 0) return;
+
+    const endAngle = startAngle + angleDeg;
+    const startRad = (startAngle * Math.PI) / 180;
+    const endRad = (endAngle * Math.PI) / 180;
+
+    const x1 = cx + r * Math.cos(startRad);
+    const y1 = cy + r * Math.sin(startRad);
+    const x2 = cx + r * Math.cos(endRad);
+    const y2 = cy + r * Math.sin(endRad);
+    const ix1 = cx + inner * Math.cos(endRad);
+    const iy1 = cy + inner * Math.sin(endRad);
+    const ix2 = cx + inner * Math.cos(startRad);
+    const iy2 = cy + inner * Math.sin(startRad);
+
+    const largeArc = angleDeg > 180 ? 1 : 0;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const d = [
+      `M ${x1} ${y1}`,
+      `A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2}`,
+      `L ${ix1} ${iy1}`,
+      `A ${inner} ${inner} 0 ${largeArc} 0 ${ix2} ${iy2}`,
+      'Z'
+    ].join(' ');
+
+    path.setAttribute('d', d);
+    path.setAttribute('fill', seg.color);
+    path.setAttribute('data-idx', idx);
+    path.setAttribute('data-cat', seg.category);
+    path.setAttribute('data-amount', seg.amount);
+    path.setAttribute('data-pct', seg.percentage);
+    path.style.cursor = 'pointer';
+    path.style.transition = 'opacity 0.2s';
+
+    path.addEventListener('mouseenter', () => showSegment(idx, seg, segments));
+    path.addEventListener('mouseleave', () => resetSegment(segments));
+    path.addEventListener('click', () => showSegment(idx, seg, segments));
+
+    svg.appendChild(path);
+    startAngle = endAngle + GAP;
+  });
+}
+
+function showSegment(idx, seg, segments) {
+  const paths = document.querySelectorAll('#donut-svg path');
+  paths.forEach((p, i) => {
+    p.style.opacity = i === idx ? '1' : '0.22';
+  });
+  document.getElementById('donut-eyebrow').textContent = seg.category.toUpperCase();
+  document.getElementById('donut-amount').textContent = fmt(seg.amount);
+  document.getElementById('donut-trend').textContent = seg.percentage + '% of revenue';
+
+  const tt = document.getElementById('seg-tooltip');
+  document.getElementById('tt-cat').innerHTML = `<span class="seg-tooltip-dot" style="background:${seg.color}"></span>${seg.category}`;
+  document.getElementById('tt-amount').textContent = fmt(seg.amount);
+  document.getElementById('tt-pct').textContent = seg.percentage + '% of total revenue';
+  tt.classList.add('visible');
+}
+
+function resetSegment(segments) {
+  const paths = document.querySelectorAll('#donut-svg path');
+  paths.forEach(p => p.style.opacity = '1');
+  if (currentData) {
+    document.getElementById('donut-eyebrow').textContent = 'TOTAL REVENUE';
+    document.getElementById('donut-amount').textContent = fmt(currentData.totalRevenue);
+    document.getElementById('donut-trend').textContent = '';
+  }
+  document.getElementById('seg-tooltip').classList.remove('visible');
+}
+
+function renderOrders(orders) {
+  const list = document.getElementById('order-list');
+  if (!orders || orders.length === 0) {
+    list.innerHTML = '<div style="color:var(--text-muted);font-size:13px;padding:16px 0;">No recent orders yet.</div>';
+    return;
+  }
+  list.innerHTML = orders.map(o => {
+    const initial = (o.customerName || o.eventName || '?')[0].toUpperCase();
+    return `<div class="order-row">
+      <div class="order-thumb">${initial}</div>
+      <div class="order-info">
+        <div class="order-name">${o.customerName || 'Customer'}</div>
+        <div class="order-meta">${fmtDate(o.eventDate)}${o.guests ? ' · ' + o.guests + ' guests' : ''}</div>
+      </div>
+      <div class="order-right">
+        <span class="order-amount">${fmt(o.amount)}</span>
+        <span class="material-symbols-outlined order-chevron">chevron_right</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderDashboard(data) {
+  currentData = data;
+  document.getElementById('donut-amount').textContent = fmt(data.totalRevenue);
+  document.getElementById('active-orders').textContent = data.activeOrders;
+  document.getElementById('in-queue').textContent = fmt(data.inQueue);
+  buildDonut(data.segments, data.totalRevenue);
+  renderOrders(data.recentOrders);
+
+  document.getElementById('state-loading').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+}
+
+async function loadData(period) {
+  try {
+    const url = `${API}?businessID=${encodeURIComponent(BUSINESS_ID)}&token=${encodeURIComponent(TOKEN)}&period=${period}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    renderDashboard(data);
+  } catch (err) {
+    document.getElementById('state-loading').style.display = 'none';
+    document.getElementById('state-error').style.display = 'flex';
+    document.getElementById('error-msg').textContent = err.message === 'HTTP 401' ? 'Invalid credentials' : 'Failed to load dashboard. Please try again.';
+  }
+}
+
+// Time selector
+document.querySelectorAll('.time-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentPeriod = btn.dataset.period;
+    document.getElementById('content').style.display = 'none';
+    document.getElementById('state-loading').style.display = 'flex';
+    loadData(currentPeriod);
+  });
+});
+
+// Init
+if (!BUSINESS_ID || !TOKEN) {
+  document.getElementById('state-loading').style.display = 'none';
+  document.getElementById('state-error').style.display = 'flex';
+  document.getElementById('error-msg').textContent = 'Missing businessID or token in URL.';
+} else {
+  loadData(currentPeriod);
+}
+</script>
+</body>
+</html>
