@@ -25,7 +25,8 @@
   body{background:#f8faf8;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   summary{list-style:none}
   summary::-webkit-details-marker{display:none}
-  @media (max-width:880px){[data-nav-links]{display:none !important;}}
+  [data-mobile-menu]{display:none}
+  @media (max-width:880px){[data-nav-links]{display:none !important;}[data-mobile-menu]{display:block !important;}}
 </style>
 </helmet>
 
@@ -49,6 +50,15 @@
         <a href="/faq" style="font-size:14px;font-weight:700;color:var(--green-dark);text-decoration:none">FAQ</a>
       </div>
       <a href="https://casava.ai/onboard.html" style="background:var(--orange);color:#fff;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap" style-hover="filter:brightness(1.06)">Start free trial</a>
+      <details data-mobile-menu style="display:none;position:relative">
+        <summary style="cursor:pointer;padding:6px;display:flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--body)" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg></summary>
+        <div style="position:absolute;top:calc(100% + 12px);right:0;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 40px rgba(30,27,23,.14);padding:8px;display:flex;flex-direction:column;gap:2px;min-width:190px;z-index:250">
+          <a href="/#how" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">How it works</a>
+          <a href="/casava" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Products</a>
+          <a href="/pricing" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">Pricing</a>
+          <a href="/faq" style="font-size:14.5px;font-weight:600;color:var(--body);text-decoration:none;padding:11px 14px;border-radius:9px" style-hover="background:var(--surface)">FAQ</a>
+        </div>
+      </details>
     </div>
   </nav>
 
@@ -79,7 +89,7 @@
     <div style="max-width:720px;margin:0 auto">
       <h2 style="font-family:'Manrope',sans-serif;font-size:20px;font-weight:900;letter-spacing:-.3px;margin:0 0 18px;color:var(--green-dark)">Billing</h2>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">What happens at day 30?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">You'll be prompted to choose a paid plan. Nothing is charged automatically.</p></details>
+        <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">What happens at day 30?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">We'll be in touch before your trial ends to share current features and pricing. If you choose not to continue, simply let us know and your account will be deactivated. Your customer data will be made available for export.</p></details>
         <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">Is there a setup fee?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">No, on any tier.</p></details>
         <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">Can I switch tiers later?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">Yes, anytime — changes take effect on your next billing cycle.</p></details>
         <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">What if I cancel?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">Cancel anytime, no penalty — your account stays active through the end of the billing period.</p></details>
@@ -95,7 +105,7 @@
         <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">Which messaging apps can I get approvals through?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">Your favorite messaging app, SMS, or email — set your preferred channel and a backup during setup.</p></details>
         <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">Which payment providers do you support?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">Square, Stripe, and QuickBooks — connect the one you already use during onboarding.</p></details>
         <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">Does it sync with my existing calendar?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">Yes — confirmed bookings are added straight to your Google Calendar, with an invite sent to the client automatically.</p></details>
-        <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">What if I use a different tool for one of these?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">Reach out at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a1c8cfc7cee1c2c0d2c0d7c08fc0c8">[email&#160;protected]</a> — we're adding integrations regularly.</p></details>
+        <details style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px"><summary style="font-size:15px;font-weight:700;cursor:pointer">What if I use a different tool for one of these?</summary><p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">Reach out at info@casava.ai — we're adding integrations regularly.</p></details>
       </div>
     </div>
   </section>
@@ -103,7 +113,7 @@
   <!-- FOOTER CTA -->
   <section style="background:var(--surface);border-top:1px solid var(--border);padding:clamp(44px,6vw,64px) clamp(20px,4vw,48px);text-align:center">
     <p style="font-family:'Manrope',sans-serif;font-size:clamp(20px,2.6vw,26px);font-weight:800;letter-spacing:-.3px;margin:0 0 8px">Still have questions?</p>
-    <a href="/cdn-cgi/l/email-protection#6b02050d042b080a180a1d0a450a02" style="font-size:16px;color:var(--green-dark);font-weight:700;text-decoration:none" style-hover="text-decoration:underline">Email <span class="__cf_email__" data-cfemail="9af3f4fcf5daf9fbe9fbecfbb4fbf3">[email&#160;protected]</span></a>
+    <a href="mailto:info@casava.ai" style="font-size:16px;color:var(--green-dark);font-weight:700;text-decoration:none" style-hover="text-decoration:underline">Email info@casava.ai</a>
   </section>
 
   <!-- FOOTER -->
@@ -120,7 +130,7 @@
         <a href="/faq" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">FAQ</a>
         <a href="/privacy" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Privacy</a>
         <a href="/terms" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">Terms</a>
-        <a href="/cdn-cgi/l/email-protection#355c5b535a755654465443541b545c" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="3851565e57785b594b594e59165951">[email&#160;protected]</span></a>
+        <a href="mailto:info@casava.ai" style="font-size:13px;color:#a89e8f;text-decoration:none" style-hover="color:#fff">info@casava.ai</a>
       </div>
     </div>
     <div style="max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
@@ -131,5 +141,5 @@
 
 </main>
 </x-dc>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</body>
 </html>
