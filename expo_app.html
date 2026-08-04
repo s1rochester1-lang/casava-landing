@@ -298,6 +298,14 @@ html, body {
 </style>
 </head>
 <body>
+  <div id="desktop-guard" style="display:none;position:fixed;inset:0;background:#040614;z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:40px;text-align:center">
+  <div style="font-family:'Manrope',sans-serif;font-size:20px;font-weight:900;color:#E6E0EA">
+    <span style="color:#9FE1CB">casava</span><span style="color:rgba(230,224,234,0.4)">.</span><span style="color:#F5641B">ai</span>
+  </div>
+  <span class="material-symbols-outlined" style="font-size:40px;color:#F5641B">smartphone</span>
+  <h2 style="font-family:'Manrope',sans-serif;font-size:20px;font-weight:800;color:#E6E0EA">Expo is designed for mobile</h2>
+  <p style="font-family:'Inter',sans-serif;font-size:14px;color:rgba(230,224,234,0.6);max-width:320px;line-height:1.6">Open this link on your phone for the best experience.</p>
+</div>
 
 <!-- HEADER -->
 <header class="header">
@@ -552,6 +560,18 @@ if (!BUSINESS_ID || !TOKEN) {
 } else {
   loadData(currentPeriod);
 }
+</script>
+  <script>
+  function checkViewport() {
+    const guard = document.getElementById('desktop-guard');
+    if (window.innerWidth > 500) {
+      guard.style.display = 'flex';
+    } else {
+      guard.style.display = 'none';
+    }
+  }
+  checkViewport();
+  window.addEventListener('resize', checkViewport);
 </script>
 </body>
 </html>
