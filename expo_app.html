@@ -89,17 +89,13 @@ html, body {
 }
 
 /* Background glow — scrolls with content */
-.bg-glow {
-  position: absolute;
-  top: 0; left: 50%; transform: translateX(-50%);
-  width: 344px; height: 344px;
-  background: radial-gradient(circle, rgba(7,109,184,0.50) 0%, rgba(3,49,82,0) 100%);
-  pointer-events: none;
-  z-index: 0;
-  border-radius: 50%;
-}
+.bg-glow { display: none; }
 
-.scroll-inner > * { position: relative; z-index: 1; }
+.scroll-inner {
+  position: relative;
+  padding: 24px 20px 24px;
+  background-image: radial-gradient(circle at 50% 172px, rgba(7,109,184,0.50) 0%, rgba(3,49,82,0) 45%);
+}
 
 /* DONUT */
 .donut-wrap {
