@@ -831,27 +831,30 @@
     const slug = form.businessSlug.value.trim();
     const intakeAddress = "intake+" + slug + "@casava.ai";
 
-    const data = {
-      ownerName: form.ownerFirstName.value.trim() + " " + form.ownerLastName.value.trim(),
-      ownerFirstName: form.ownerFirstName.value.trim(),
-      ownerLastName: form.ownerLastName.value.trim(),
-      companyName: form.companyName.value.trim(),
-      businessSlug: slug,
-      businessID: slug,
-      intakeAddress: intakeAddress,
-      cateringEmail: form.cateringEmail.value.trim(),
-      businessWebsite: form.businessWebsite.value.trim(),
-      ownerEmail: form.ownerEmail.value.trim(),
-      ownerPhone: form.ownerPhone.value.trim(),
-      calendarEmail: form.calendarEmail ? form.calendarEmail.value.trim() : "",
-      notificationChannel: form.notificationChannel.value,
-      notificationContact: form.notificationContact.value.trim(),
-      eventsPerMonth: form.eventsPerMonth.value,
-      paymentProvider: form.paymentProvider.value,
-      paymentProviderID: form.paymentProviderID.value.trim(),
-      submittedAt: new Date().toISOString(),
-      source: "onboarding-form"
-    };
+const data = {
+  ownerName: form.ownerFirstName.value.trim() + " " + form.ownerLastName.value.trim(),
+  ownerFirstName: form.ownerFirstName.value.trim(),
+  ownerLastName: form.ownerLastName.value.trim(),
+  companyName: form.companyName.value.trim(),
+  businessSlug: slug,
+  businessID: slug,
+  intakeAddress: intakeAddress,
+  cateringEmail: form.cateringEmail.value.trim(),
+  businessWebsite: form.businessWebsite.value.trim(),
+  ownerEmail: form.ownerEmail.value.trim(),
+  ownerPhone: form.ownerPhone.value.trim(),
+  calendarEmail: form.calendarEmail ? form.calendarEmail.value.trim() : "",
+  notificationChannel: form.notificationChannel.value,
+  notificationContact: form.notificationContact.value.trim(),
+  eventsPerMonth: form.eventsPerMonth.value,
+  paymentProvider: form.paymentProvider.value,
+  paymentProviderID: form.paymentProviderID.value.trim(),
+  submittedAt: new Date().toISOString(),
+  source: "onboarding-form",
+  tier: entryTier,
+  subscriptionPath: entryPath,
+  stripeSessionID: entrySessionID
+};
 
     try {
       const response = await fetch(WEBHOOK_URL, {
