@@ -685,15 +685,15 @@
       <!-- Shown for QuickBooks / Other — manual ID still required -->
       <div class="field" id="manualProviderField" style="display:none;">
         <label>Account / Location ID <span class="req">*</span></label>
-        <p class="field-hint" id="providerHint">Your QuickBooks Company ID — found in QuickBooks under Settings &rarr; Account and settings</p>
-        <input type="text" name="paymentProviderID" id="paymentProviderID" placeholder="e.g. 123456789">
+        <p class="field-hint" id="providerHint">Enter your payment provider account or location ID</p>
+        <input type="text" name="paymentProviderID" id="paymentProviderID" placeholder="Your account or location ID">
       </div>
 
       <button type="submit" class="submit-btn" id="submitBtn">
         Start my free trial →
       </button>
 
-      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email hello@casava.ai</div>
+      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email info@casava.ai</div>
 
       <p class="privacy-note">No credit card required &nbsp;·&nbsp; 30-day free trial &nbsp;·&nbsp; Your account activates instantly.</p>
 
@@ -868,8 +868,6 @@
         successCard.classList.add("visible");
         if (entryPath === "paid") {
           document.getElementById("successHeadline").textContent = "Setup complete!";
-          document.getElementById("successCopy").textContent =
-            "Your Casava account is being activated. Check your email to confirm your address, then Zara will reach out on your chosen channel to finish setup.";
         }
         document.getElementById("successDetail").innerHTML =
           "<strong>Name:</strong> " + data.ownerName + "<br>" +
