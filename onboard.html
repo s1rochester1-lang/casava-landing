@@ -693,16 +693,16 @@
         Start my free trial →
       </button>
 
-      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fc9499909093bc9f9d8f9d8a9dd29d95">[email&#160;protected]</a></div>
+      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email hello@casava.ai</div>
 
-      <p class="privacy-note">No credit card required &nbsp;·&nbsp; 30-day free trial &nbsp;·&nbsp; We'll reach out personally before activating your account.</p>
+      <p class="privacy-note">No credit card required &nbsp;·&nbsp; 30-day free trial &nbsp;·&nbsp; Your account activates instantly.</p>
 
     </form>
 
     <div class="success-card" id="successCard">
       <div class="success-icon">✓</div>
       <h2 id="successHeadline">You're in!</h2>
-      <p id="successCopy">We received your details and will have your Casava account ready within 24 hours. Check your inbox for a welcome email.</p>
+      <p id="successCopy">Your Casava account is ready. Check your inbox for a welcome email, and keep an eye on your phone, Zara will be in touch shortly to help you finish setup.</p>
       <div class="success-detail" id="successDetail"></div>
 
       <div class="connect-provider-section" id="connectProviderSection">
@@ -714,7 +714,7 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const WEBHOOK_URL = "https://casava-ai.app.n8n.cloud/webhook/onboard";
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -831,30 +831,30 @@
     const slug = form.businessSlug.value.trim();
     const intakeAddress = "intake+" + slug + "@casava.ai";
 
-const data = {
-  ownerName: form.ownerFirstName.value.trim() + " " + form.ownerLastName.value.trim(),
-  ownerFirstName: form.ownerFirstName.value.trim(),
-  ownerLastName: form.ownerLastName.value.trim(),
-  companyName: form.companyName.value.trim(),
-  businessSlug: slug,
-  businessID: slug,
-  intakeAddress: intakeAddress,
-  cateringEmail: form.cateringEmail.value.trim(),
-  businessWebsite: form.businessWebsite.value.trim(),
-  ownerEmail: form.ownerEmail.value.trim(),
-  ownerPhone: form.ownerPhone.value.trim(),
-  calendarEmail: form.calendarEmail ? form.calendarEmail.value.trim() : "",
-  notificationChannel: form.notificationChannel.value,
-  notificationContact: form.notificationContact.value.trim(),
-  eventsPerMonth: form.eventsPerMonth.value,
-  paymentProvider: form.paymentProvider.value,
-  paymentProviderID: form.paymentProviderID.value.trim(),
-  submittedAt: new Date().toISOString(),
-  source: "onboarding-form",
-  tier: entryTier,
-  subscriptionPath: entryPath,
-  stripeSessionID: entrySessionID
-};
+    const data = {
+      ownerName: form.ownerFirstName.value.trim() + " " + form.ownerLastName.value.trim(),
+      ownerFirstName: form.ownerFirstName.value.trim(),
+      ownerLastName: form.ownerLastName.value.trim(),
+      companyName: form.companyName.value.trim(),
+      businessSlug: slug,
+      businessID: slug,
+      intakeAddress: intakeAddress,
+      cateringEmail: form.cateringEmail.value.trim(),
+      businessWebsite: form.businessWebsite.value.trim(),
+      ownerEmail: form.ownerEmail.value.trim(),
+      ownerPhone: form.ownerPhone.value.trim(),
+      calendarEmail: form.calendarEmail ? form.calendarEmail.value.trim() : "",
+      notificationChannel: form.notificationChannel.value,
+      notificationContact: form.notificationContact.value.trim(),
+      eventsPerMonth: form.eventsPerMonth.value,
+      paymentProvider: form.paymentProvider.value,
+      paymentProviderID: form.paymentProviderID.value.trim(),
+      submittedAt: new Date().toISOString(),
+      source: "onboarding-form",
+      tier: entryTier,
+      subscriptionPath: entryPath,
+      stripeSessionID: entrySessionID
+    };
 
     try {
       const response = await fetch(WEBHOOK_URL, {
