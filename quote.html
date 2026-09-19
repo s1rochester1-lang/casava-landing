@@ -208,6 +208,10 @@ tailwind.config = {
         <!-- Customer CTA -->
         <div id="customer-cta" class="hidden space-y-3">
           <div id="invoice-terms" class="text-xs text-on-surface-variant bg-surface-container rounded-lg p-3 leading-relaxed hidden"></div>
+          <div id="accept-error" class="hidden text-sm bg-red-50 border border-red-200 text-red-700 rounded-lg p-3 leading-relaxed flex items-start gap-2">
+            <span class="material-symbols-outlined text-lg leading-none">error</span>
+            <span id="accept-error-text"></span>
+          </div>
           <button onclick="customerAccept()" id="btn-accept"
             class="w-full bg-[#F5641B] text-white py-4 rounded-lg font-bold text-sm uppercase tracking-[0.1em] hover:bg-orange-600 hover:shadow-lg hover:-translate-y-0.5 transition-all">
             Accept This Quote
@@ -486,6 +490,9 @@ async function loadQuote() {
 // CUSTOMER ACCEPT
 async function customerAccept() {
   const btn = $('btn-accept');
+  const errBox = $('accept-error');
+  const errText = $('accept-error-text');
+  hide('accept-error');
   btn.textContent = 'Confirming…';
   btn.disabled = true;
   btn.style.opacity = '0.7';
@@ -504,6 +511,16 @@ async function customerAccept() {
 
     if (res.ok) {
       const data = await res.json();
+
+      if (data.status === 'error') {
+        errText.textContent = data.errorMessage || 'Something went wrong. Please try again.';
+        show('accept-error');
+        btn.textContent = 'Accept This Quote';
+        btn.disabled = false;
+        btn.style.opacity = '';
+        return;
+      }
+
       if (data.paymentLink) {
         // Redirect to payment provider
         hide('quote-content');
